@@ -18,7 +18,7 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/karthikeyasurabhi/thanos"
+Homepage = "https://github.com/freakomonk/thanos"
 
 [tool.setuptools.packages.find]
 include = ["thanos*"]
