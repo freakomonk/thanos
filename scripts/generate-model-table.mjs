@@ -25,18 +25,35 @@ function formatTiers(tiers) {
     .join("; ");
 }
 
+// The README table shows only the hand-curated entries (direct provider
+// APIs, plus a handful of Bedrock/Azure flagships); `openrouter/*` entries
+// are mirrored programmatically from OpenRouter's catalog and are too
+// numerous (hundreds) to usefully print inline — they're summarized as a
+// count instead. All of it is still in models.json and `thanos models`.
 function buildTable(data) {
-  const rows = Object.entries(data.models)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([id, m]) => {
-      const cache = m.cache ? `${m.cache.writePerMTok} / ${m.cache.readPerMTok}` : "-";
-      return `| \`${id}\` | ${m.provider} | ${fmt(m.contextWindow)} | ${formatTiers(m.tiers)} | ${cache} |`;
-    });
-  return [
+  const entries = Object.entries(data.models).sort(([a], [b]) => a.localeCompare(b));
+  const curated = entries.filter(([, m]) => m.provider !== "openrouter");
+  const openrouterCount = entries.length - curated.length;
+
+  const rows = curated.map(([id, m]) => {
+    const cache = m.cache ? `${m.cache.writePerMTok} / ${m.cache.readPerMTok}` : "-";
+    return `| \`${id}\` | ${m.provider} | ${fmt(m.contextWindow)} | ${formatTiers(m.tiers)} | ${cache} |`;
+  });
+
+  const table = [
     "| Model id | Provider | Context window | Tiers (maxTokens: input/output $ per MTok) | Cache write/read $ per MTok |",
     "|---|---|---|---|---|",
     ...rows,
   ].join("\n");
+
+  const note =
+    `Plus **${fmt(openrouterCount)} more models** mirrored live from ` +
+    "[OpenRouter's public catalog](https://openrouter.ai/api/v1/models) " +
+    "as `openrouter/<slug>` (e.g. `openrouter/anthropic/claude-sonnet-4.5`, " +
+    "`openrouter/google/gemini-3-pro`). Run `thanos models` / `npx thanos models` " +
+    "to list all of them, or open `python/thanos/data/models.json`.";
+
+  return `${table}\n\n${note}`;
 }
 
 const data = JSON.parse(readFileSync(modelsPath, "utf8"));

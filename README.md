@@ -61,18 +61,37 @@ fails if they drift apart (see the `docs` job in
 `node scripts/generate-model-table.mjs` after editing `models.json`.
 
 **Pricing data is illustrative and will go stale** — check it against the
-provider's own pricing page. Anything not listed below raises an error
-unless you add it yourself via the `models` option on `ContextGuard`, with
-no need to touch this file or this repo.
+provider's own pricing page. Unprefixed ids (`claude-sonnet-4-5`, `gpt-5`)
+are each provider's direct API; `bedrock/*` and `azure/*` are a small
+hand-curated set of flagship models on AWS Bedrock and Azure AI Foundry;
+`openrouter/*` is mirrored programmatically from
+[OpenRouter's public model catalog](https://openrouter.ai/api/v1/models),
+so it reflects OpenRouter's own pricing, not the underlying provider's.
+Anything not listed raises an error unless you add it yourself via the
+`models` option on `ContextGuard`, with no need to touch this file or
+this repo.
 
 <!-- MODELS_TABLE:START -->
 | Model id | Provider | Context window | Tiers (maxTokens: input/output $ per MTok) | Cache write/read $ per MTok |
 |---|---|---|---|---|
+| `azure/gpt-4o` | azure | 128,000 | ≤128,000: $2.5/$10 | 0 / 1.25 |
+| `azure/gpt-5` | azure | 400,000 | ≤400,000: $1.25/$10 | 0 / 0.125 |
+| `azure/gpt-5-mini` | azure | 400,000 | ≤400,000: $0.25/$2 | 0 / 0.025 |
+| `bedrock/claude-haiku-4-5` | bedrock | 200,000 | ≤200,000: $1/$5 | 1.25 / 0.1 |
+| `bedrock/claude-opus-4-5` | bedrock | 200,000 | ≤200,000: $5/$25 | 6.25 / 0.5 |
+| `bedrock/claude-sonnet-4-5` | bedrock | 1,000,000 | ≤200,000: $3/$15; ≤1,000,000: $6/$22.5 | 3.75 / 0.3 |
+| `bedrock/llama-3.3-70b` | bedrock | 128,000 | ≤128,000: $0.72/$0.72 | - |
+| `bedrock/mistral-large` | bedrock | 131,000 | ≤131,000: $2/$6 | - |
+| `bedrock/nova-lite` | bedrock | 300,000 | ≤300,000: $0.06/$0.24 | - |
+| `bedrock/nova-micro` | bedrock | 128,000 | ≤128,000: $0.035/$0.14 | - |
+| `bedrock/nova-pro` | bedrock | 300,000 | ≤300,000: $0.8/$3.2 | - |
 | `claude-haiku-4-5` | anthropic | 200,000 | ≤200,000: $1/$5 | 1.25 / 0.1 |
 | `claude-opus-4-5` | anthropic | 200,000 | ≤200,000: $5/$25 | 6.25 / 0.5 |
 | `claude-sonnet-4-5` | anthropic | 1,000,000 | ≤200,000: $3/$15; ≤1,000,000: $6/$22.5 | 3.75 / 0.3 |
 | `gpt-5` | openai | 400,000 | ≤400,000: $1.25/$10 | 0 / 0.125 |
 | `gpt-5-mini` | openai | 400,000 | ≤400,000: $0.25/$2 | 0 / 0.025 |
+
+Plus **456 more models** mirrored live from [OpenRouter's public catalog](https://openrouter.ai/api/v1/models) as `openrouter/<slug>` (e.g. `openrouter/anthropic/claude-sonnet-4.5`, `openrouter/google/gemini-3-pro`). Run `thanos models` / `npx thanos models` to list all of them, or open `python/thanos/data/models.json`.
 
 <!-- MODELS_TABLE:END -->
 

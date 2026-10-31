@@ -1,46 +1,6282 @@
 {
-  "_disclaimer": "Illustrative pricing data, last checked 2026-10-31. Provider pricing changes frequently and sources disagree on current rates — verify against the provider's own pricing page before relying on this for real billing decisions. Override or add entries via ContextGuard's `models` option; you never need to edit this file.",
+  "_disclaimer": "Illustrative pricing data, last checked 2026-10-31. The unprefixed entries (e.g. `claude-sonnet-4-5`, `gpt-5`) are each provider's direct API. `bedrock/*` and `azure/*` entries are a small, hand-curated set of flagship-model prices for AWS Bedrock and Azure AI Foundry (sourced from third-party trackers, not an official page \u2014 confirm against the AWS/Azure pricing pages, and check your own account for the exact Bedrock model id string, which is versioned and region-specific). `openrouter/*` entries (456 of them) are mirrored programmatically from OpenRouter's public /api/v1/models endpoint, so they reflect OpenRouter's own (possibly marked-up) pricing, not the underlying provider's. All of it changes frequently \u2014 verify before relying on it for real billing decisions. Override or add entries via ContextGuard's `models` option; you never need to edit this file.",
   "models": {
-    "claude-opus-4-5": {
-      "provider": "anthropic",
+    "azure/gpt-4o": {
+      "provider": "azure",
+      "contextWindow": 128000,
+      "tiers": [
+        {
+          "maxTokens": 128000,
+          "inputPerMTok": 2.5,
+          "outputPerMTok": 10.0
+        }
+      ],
+      "cache": {
+        "writePerMTok": 0.0,
+        "readPerMTok": 1.25
+      }
+    },
+    "azure/gpt-5": {
+      "provider": "azure",
+      "contextWindow": 400000,
+      "tiers": [
+        {
+          "maxTokens": 400000,
+          "inputPerMTok": 1.25,
+          "outputPerMTok": 10.0
+        }
+      ],
+      "cache": {
+        "writePerMTok": 0.0,
+        "readPerMTok": 0.125
+      }
+    },
+    "azure/gpt-5-mini": {
+      "provider": "azure",
+      "contextWindow": 400000,
+      "tiers": [
+        {
+          "maxTokens": 400000,
+          "inputPerMTok": 0.25,
+          "outputPerMTok": 2.0
+        }
+      ],
+      "cache": {
+        "writePerMTok": 0.0,
+        "readPerMTok": 0.025
+      }
+    },
+    "bedrock/claude-haiku-4-5": {
+      "provider": "bedrock",
       "contextWindow": 200000,
       "tiers": [
-        { "maxTokens": 200000, "inputPerMTok": 5.0, "outputPerMTok": 25.0 }
+        {
+          "maxTokens": 200000,
+          "inputPerMTok": 1.0,
+          "outputPerMTok": 5.0
+        }
       ],
-      "cache": { "writePerMTok": 6.25, "readPerMTok": 0.5 }
+      "cache": {
+        "writePerMTok": 1.25,
+        "readPerMTok": 0.1
+      }
     },
-    "claude-sonnet-4-5": {
-      "provider": "anthropic",
+    "bedrock/claude-opus-4-5": {
+      "provider": "bedrock",
+      "contextWindow": 200000,
+      "tiers": [
+        {
+          "maxTokens": 200000,
+          "inputPerMTok": 5.0,
+          "outputPerMTok": 25.0
+        }
+      ],
+      "cache": {
+        "writePerMTok": 6.25,
+        "readPerMTok": 0.5
+      }
+    },
+    "bedrock/claude-sonnet-4-5": {
+      "provider": "bedrock",
       "contextWindow": 1000000,
       "tiers": [
-        { "maxTokens": 200000, "inputPerMTok": 3.0, "outputPerMTok": 15.0 },
-        { "maxTokens": 1000000, "inputPerMTok": 6.0, "outputPerMTok": 22.5 }
+        {
+          "maxTokens": 200000,
+          "inputPerMTok": 3.0,
+          "outputPerMTok": 15.0
+        },
+        {
+          "maxTokens": 1000000,
+          "inputPerMTok": 6.0,
+          "outputPerMTok": 22.5
+        }
       ],
-      "cache": { "writePerMTok": 3.75, "readPerMTok": 0.3 }
+      "cache": {
+        "writePerMTok": 3.75,
+        "readPerMTok": 0.3
+      }
+    },
+    "bedrock/llama-3.3-70b": {
+      "provider": "bedrock",
+      "contextWindow": 128000,
+      "tiers": [
+        {
+          "maxTokens": 128000,
+          "inputPerMTok": 0.72,
+          "outputPerMTok": 0.72
+        }
+      ]
+    },
+    "bedrock/mistral-large": {
+      "provider": "bedrock",
+      "contextWindow": 131000,
+      "tiers": [
+        {
+          "maxTokens": 131000,
+          "inputPerMTok": 2.0,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "bedrock/nova-lite": {
+      "provider": "bedrock",
+      "contextWindow": 300000,
+      "tiers": [
+        {
+          "maxTokens": 300000,
+          "inputPerMTok": 0.06,
+          "outputPerMTok": 0.24
+        }
+      ]
+    },
+    "bedrock/nova-micro": {
+      "provider": "bedrock",
+      "contextWindow": 128000,
+      "tiers": [
+        {
+          "maxTokens": 128000,
+          "inputPerMTok": 0.035,
+          "outputPerMTok": 0.14
+        }
+      ]
+    },
+    "bedrock/nova-pro": {
+      "provider": "bedrock",
+      "contextWindow": 300000,
+      "tiers": [
+        {
+          "maxTokens": 300000,
+          "inputPerMTok": 0.8,
+          "outputPerMTok": 3.2
+        }
+      ]
     },
     "claude-haiku-4-5": {
       "provider": "anthropic",
       "contextWindow": 200000,
       "tiers": [
-        { "maxTokens": 200000, "inputPerMTok": 1.0, "outputPerMTok": 5.0 }
+        {
+          "maxTokens": 200000,
+          "inputPerMTok": 1.0,
+          "outputPerMTok": 5.0
+        }
       ],
-      "cache": { "writePerMTok": 1.25, "readPerMTok": 0.1 }
+      "cache": {
+        "writePerMTok": 1.25,
+        "readPerMTok": 0.1
+      }
+    },
+    "claude-opus-4-5": {
+      "provider": "anthropic",
+      "contextWindow": 200000,
+      "tiers": [
+        {
+          "maxTokens": 200000,
+          "inputPerMTok": 5.0,
+          "outputPerMTok": 25.0
+        }
+      ],
+      "cache": {
+        "writePerMTok": 6.25,
+        "readPerMTok": 0.5
+      }
+    },
+    "claude-sonnet-4-5": {
+      "provider": "anthropic",
+      "contextWindow": 1000000,
+      "tiers": [
+        {
+          "maxTokens": 200000,
+          "inputPerMTok": 3.0,
+          "outputPerMTok": 15.0
+        },
+        {
+          "maxTokens": 1000000,
+          "inputPerMTok": 6.0,
+          "outputPerMTok": 22.5
+        }
+      ],
+      "cache": {
+        "writePerMTok": 3.75,
+        "readPerMTok": 0.3
+      }
     },
     "gpt-5": {
       "provider": "openai",
       "contextWindow": 400000,
       "tiers": [
-        { "maxTokens": 400000, "inputPerMTok": 1.25, "outputPerMTok": 10.0 }
+        {
+          "maxTokens": 400000,
+          "inputPerMTok": 1.25,
+          "outputPerMTok": 10.0
+        }
       ],
-      "cache": { "writePerMTok": 0.0, "readPerMTok": 0.125 }
+      "cache": {
+        "writePerMTok": 0.0,
+        "readPerMTok": 0.125
+      }
     },
     "gpt-5-mini": {
       "provider": "openai",
       "contextWindow": 400000,
       "tiers": [
-        { "maxTokens": 400000, "inputPerMTok": 0.25, "outputPerMTok": 2.0 }
+        {
+          "maxTokens": 400000,
+          "inputPerMTok": 0.25,
+          "outputPerMTok": 2.0
+        }
       ],
-      "cache": { "writePerMTok": 0.0, "readPerMTok": 0.025 }
+      "cache": {
+        "writePerMTok": 0.0,
+        "readPerMTok": 0.025
+      }
+    },
+    "openrouter/aion-labs/aion-2.0": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.8,
+          "maxTokens": 131072,
+          "outputPerMTok": 1.6
+        }
+      ]
+    },
+    "openrouter/aion-labs/aion-3.0": {
+      "cache": {
+        "readPerMTok": 0.75
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 3.0,
+          "maxTokens": 131072,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/aion-labs/aion-3.0-mini": {
+      "cache": {
+        "readPerMTok": 0.18
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.7,
+          "maxTokens": 131072,
+          "outputPerMTok": 1.4
+        }
+      ]
+    },
+    "openrouter/aion-labs/aion-3.5": {
+      "cache": {
+        "readPerMTok": 0.75
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 3.0,
+          "maxTokens": 262144,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/aion-labs/aion-3.5-mini": {
+      "cache": {
+        "readPerMTok": 0.18
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.7,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.4
+        }
+      ]
+    },
+    "openrouter/aion-labs/aion-rp-llama-3.1-8b": {
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.8,
+          "maxTokens": 32768,
+          "outputPerMTok": 1.6
+        }
+      ]
+    },
+    "openrouter/amazon/nova-2-lite-v1": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 1000000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/amazon/nova-lite-v1": {
+      "contextWindow": 300000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.06,
+          "maxTokens": 300000,
+          "outputPerMTok": 0.24
+        }
+      ]
+    },
+    "openrouter/amazon/nova-micro-v1": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.035,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.14
+        }
+      ]
+    },
+    "openrouter/amazon/nova-premier-v1": {
+      "cache": {
+        "readPerMTok": 0.625
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 1000000,
+          "outputPerMTok": 12.5
+        }
+      ]
+    },
+    "openrouter/amazon/nova-pro-v1": {
+      "contextWindow": 300000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.8,
+          "maxTokens": 300000,
+          "outputPerMTok": 3.2
+        }
+      ]
+    },
+    "openrouter/anthracite-org/magnum-v4-72b": {
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 32768,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-fable-5": {
+      "cache": {
+        "readPerMTok": 1.0,
+        "writePerMTok": 12.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 10.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 50.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-fable-5.1": {
+      "cache": {
+        "readPerMTok": 0.25,
+        "writePerMTok": 12.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 10.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 50.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-fable-5.1:batch": {
+      "cache": {
+        "readPerMTok": 0.125,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-fable-5:batch": {
+      "cache": {
+        "readPerMTok": 0.5,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-haiku-4.5": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-haiku-4.5:batch": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 0.625
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 200000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-haiku-5.5": {
+      "cache": {
+        "readPerMTok": 0.01,
+        "writePerMTok": 0.125
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-haiku-5.5:batch": {
+      "cache": {
+        "readPerMTok": 0.005,
+        "writePerMTok": 0.0625
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.25
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.1": {
+      "cache": {
+        "readPerMTok": 1.5,
+        "writePerMTok": 18.75
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 15.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 75.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.1:batch": {
+      "cache": {
+        "readPerMTok": 0.75,
+        "writePerMTok": 9.375
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 7.5,
+          "maxTokens": 200000,
+          "outputPerMTok": 37.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.5": {
+      "cache": {
+        "readPerMTok": 0.5,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.5:batch": {
+      "cache": {
+        "readPerMTok": 0.25,
+        "writePerMTok": 3.125
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 200000,
+          "outputPerMTok": 12.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.6": {
+      "cache": {
+        "readPerMTok": 0.5,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.6:batch": {
+      "cache": {
+        "readPerMTok": 0.25,
+        "writePerMTok": 3.125
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 1000000,
+          "outputPerMTok": 12.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.7": {
+      "cache": {
+        "readPerMTok": 0.5,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.7:batch": {
+      "cache": {
+        "readPerMTok": 0.25,
+        "writePerMTok": 3.125
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 1000000,
+          "outputPerMTok": 12.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.8": {
+      "cache": {
+        "readPerMTok": 0.5,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-4.8:batch": {
+      "cache": {
+        "readPerMTok": 0.25,
+        "writePerMTok": 3.125
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 1000000,
+          "outputPerMTok": 12.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-5": {
+      "cache": {
+        "readPerMTok": 0.5,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-5.5": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 5.0
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 4.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 20.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-5.5:batch": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-opus-5:batch": {
+      "cache": {
+        "readPerMTok": 0.25,
+        "writePerMTok": 3.125
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 1000000,
+          "outputPerMTok": 12.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-sonnet-4.5": {
+      "cache": {
+        "readPerMTok": 0.3,
+        "writePerMTok": 3.75
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 3.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-sonnet-4.5:batch": {
+      "cache": {
+        "readPerMTok": 0.15,
+        "writePerMTok": 1.875
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.5,
+          "maxTokens": 1000000,
+          "outputPerMTok": 7.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-sonnet-4.6": {
+      "cache": {
+        "readPerMTok": 0.3,
+        "writePerMTok": 3.75
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 3.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-sonnet-4.6:batch": {
+      "cache": {
+        "readPerMTok": 0.15,
+        "writePerMTok": 1.875
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.5,
+          "maxTokens": 1000000,
+          "outputPerMTok": 7.5
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-sonnet-5": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-sonnet-5.5": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-sonnet-5.5:batch": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/anthropic/claude-sonnet-5:batch": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/bytedance-seed/seed-1.6": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/bytedance-seed/seed-1.6-flash": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.075,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.3
+        }
+      ]
+    },
+    "openrouter/bytedance-seed/seed-2-1-turbo": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/bytedance-seed/seed-2.0-code": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 262144,
+          "outputPerMTok": 3.0
+        }
+      ]
+    },
+    "openrouter/bytedance-seed/seed-2.0-lite": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/bytedance-seed/seed-2.0-mini": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/bytedance/ui-tars-1.5-7b": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/cognitivecomputations/dolphin-mistral-24b-venice-edition": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.9
+        }
+      ]
+    },
+    "openrouter/cohere/command-a": {
+      "contextWindow": 256000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 256000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/cohere/command-a-plus": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 192000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 192000,
+          "outputPerMTok": 1.5
+        }
+      ]
+    },
+    "openrouter/cohere/command-r-08-2024": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/cohere/command-r-plus-08-2024": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 128000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/cohere/command-r7b-12-2024": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0375,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.15
+        }
+      ]
+    },
+    "openrouter/cohere/north-mini-code:free": {
+      "contextWindow": 256000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 256000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-chat": {
+      "contextWindow": 163840,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2574,
+          "maxTokens": 163840,
+          "outputPerMTok": 1.0287
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-chat-v3-0324": {
+      "cache": {
+        "readPerMTok": 0.11
+      },
+      "contextWindow": 163840,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.29,
+          "maxTokens": 163840,
+          "outputPerMTok": 1.14
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-chat-v3.1": {
+      "cache": {
+        "readPerMTok": 0.13
+      },
+      "contextWindow": 163840,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 163840,
+          "outputPerMTok": 0.95
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-r1-0528": {
+      "cache": {
+        "readPerMTok": 0.35
+      },
+      "contextWindow": 163840,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 163840,
+          "outputPerMTok": 2.15
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v3.1-terminus": {
+      "contextWindow": 163840,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.27,
+          "maxTokens": 163840,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v3.2": {
+      "cache": {
+        "readPerMTok": 0.13
+      },
+      "contextWindow": 163840,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.26,
+          "maxTokens": 163840,
+          "outputPerMTok": 0.38
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v3.2-exp": {
+      "contextWindow": 163840,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.27,
+          "maxTokens": 163840,
+          "outputPerMTok": 0.41
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v4-flash": {
+      "cache": {
+        "readPerMTok": 0.0182
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.091,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.182
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v4-flash-0731": {
+      "cache": {
+        "readPerMTok": 0.0238
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.119,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.238
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v4-flash-vision-exp": {
+      "cache": {
+        "readPerMTok": 0.00686
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2156,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.6468
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v4-pro": {
+      "cache": {
+        "readPerMTok": 0.135
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.6,
+          "maxTokens": 1048576,
+          "outputPerMTok": 3.2
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v4-pro-0813": {
+      "cache": {
+        "readPerMTok": 0.022
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.66,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.98
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v4.1-flash": {
+      "cache": {
+        "readPerMTok": 0.006
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.045,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v4.1-flash-1017": {
+      "cache": {
+        "readPerMTok": 0.003
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/deepseek/deepseek-v4.1-flash:batch": {
+      "cache": {
+        "readPerMTok": 0.004
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.15
+        }
+      ]
+    },
+    "openrouter/dots-studio/dots-3-note-preview:free": {
+      "contextWindow": 512000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 512000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/elorian/glimpse": {
+      "cache": {
+        "readPerMTok": 0.06
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 262144,
+          "outputPerMTok": 3.0
+        }
+      ]
+    },
+    "openrouter/fireworks/ember-1": {
+      "cache": {
+        "readPerMTok": 0.3
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 3.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-2.5-flash": {
+      "cache": {
+        "readPerMTok": 0.03,
+        "writePerMTok": 0.083333
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 1048576,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/google/gemini-2.5-flash-image": {
+      "cache": {
+        "readPerMTok": 0.03,
+        "writePerMTok": 0.083333
+      },
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 32768,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/google/gemini-2.5-flash-lite": {
+      "cache": {
+        "readPerMTok": 0.01,
+        "writePerMTok": 0.083333
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/google/gemini-2.5-pro": {
+      "cache": {
+        "readPerMTok": 0.125,
+        "writePerMTok": 0.375
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-2.5-pro-preview": {
+      "cache": {
+        "readPerMTok": 0.125,
+        "writePerMTok": 0.375
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3-flash-preview": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 0.083333
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 1048576,
+          "outputPerMTok": 3.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3-flash-preview:batch": {
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.5
+        }
+      ]
+    },
+    "openrouter/google/gemini-3-pro-image": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 0.375
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 131072,
+          "outputPerMTok": 12.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3-pro-image-preview": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 0.375
+      },
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 65536,
+          "outputPerMTok": 12.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-flash-image": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 131072,
+          "outputPerMTok": 3.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-flash-image-preview": {
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 65536,
+          "outputPerMTok": 3.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-flash-lite": {
+      "cache": {
+        "readPerMTok": 0.025,
+        "writePerMTok": 0.083333
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.5
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-flash-lite-image": {
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 65536,
+          "outputPerMTok": 1.5
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-flash-lite-preview": {
+      "cache": {
+        "readPerMTok": 0.025,
+        "writePerMTok": 0.083333
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.5
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-flash-lite:batch": {
+      "cache": {
+        "readPerMTok": 0.0125
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.125,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.75
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-pro-preview": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 0.375
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 12.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-pro-preview-customtools": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 0.375
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 12.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.1-pro-preview:batch": {
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.5-flash": {
+      "cache": {
+        "readPerMTok": 0.15,
+        "writePerMTok": 0.083333
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.5,
+          "maxTokens": 1048576,
+          "outputPerMTok": 9.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.5-flash-lite": {
+      "cache": {
+        "readPerMTok": 0.03,
+        "writePerMTok": 0.083333
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 1048576,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.5-flash-lite:batch": {
+      "cache": {
+        "readPerMTok": 0.015
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.25
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.5-flash:batch": {
+      "cache": {
+        "readPerMTok": 0.075
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.75,
+          "maxTokens": 1048576,
+          "outputPerMTok": 4.5
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.6-flash": {
+      "cache": {
+        "readPerMTok": 0.075,
+        "writePerMTok": 0.041667
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.75,
+          "maxTokens": 1048576,
+          "outputPerMTok": 3.75
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.6-flash:batch": {
+      "cache": {
+        "readPerMTok": 0.0375,
+        "writePerMTok": 0.041667
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.375,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.875
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.7-flash": {
+      "cache": {
+        "readPerMTok": 0.075,
+        "writePerMTok": 0.041667
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.75,
+          "maxTokens": 1048576,
+          "outputPerMTok": 3.75
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.7-flash:batch": {
+      "cache": {
+        "readPerMTok": 0.0375,
+        "writePerMTok": 0.041667
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.375,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.875
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.8-flash": {
+      "cache": {
+        "readPerMTok": 0.0825,
+        "writePerMTok": 0.041667
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.825,
+          "maxTokens": 1048576,
+          "outputPerMTok": 4.125
+        }
+      ]
+    },
+    "openrouter/google/gemini-3.8-flash:batch": {
+      "cache": {
+        "readPerMTok": 0.0375,
+        "writePerMTok": 0.041667
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.375,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.875
+        }
+      ]
+    },
+    "openrouter/google/gemini-4-argon": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 0.1875
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-4-argon:batch": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 0.1875
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/google/gemini-nano-banana-2.1": {
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.5,
+          "maxTokens": 65536,
+          "outputPerMTok": 7.5
+        }
+      ]
+    },
+    "openrouter/google/gemma-2-27b-it": {
+      "contextWindow": 8192,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.65,
+          "maxTokens": 8192,
+          "outputPerMTok": 0.65
+        }
+      ]
+    },
+    "openrouter/google/gemma-3-12b-it": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.15
+        }
+      ]
+    },
+    "openrouter/google/gemma-3-27b-it": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.08,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.35
+        }
+      ]
+    },
+    "openrouter/google/gemma-3-4b-it": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.1
+        }
+      ]
+    },
+    "openrouter/google/gemma-4-26b-a4b-it": {
+      "cache": {
+        "readPerMTok": 0.0375
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0675,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.225
+        }
+      ]
+    },
+    "openrouter/google/gemma-4-26b-a4b-it:free": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/google/gemma-4-31b-it": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/google/gemma-4-31b-it:free": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/google/lyria-3-clip-preview": {
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/google/lyria-3-pro-preview": {
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/gryphe/mythomax-l2-13b": {
+      "contextWindow": 8192,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.08,
+          "maxTokens": 8192,
+          "outputPerMTok": 0.11
+        }
+      ]
+    },
+    "openrouter/ibm-granite/granite-4.2-8b": {
+      "cache": {
+        "readPerMTok": 0.015
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.06,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.15
+        }
+      ]
+    },
+    "openrouter/inception/mercury-2": {
+      "cache": {
+        "readPerMTok": 0.025
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.75
+        }
+      ]
+    },
+    "openrouter/inception/mercury-2.5": {
+      "cache": {
+        "readPerMTok": 0.004
+      },
+      "contextWindow": 260000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.04,
+          "maxTokens": 260000,
+          "outputPerMTok": 0.15
+        }
+      ]
+    },
+    "openrouter/inception/mercury-3": {
+      "cache": {
+        "readPerMTok": 0.01
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.35
+        }
+      ]
+    },
+    "openrouter/inclusionai/ling-3.0-flash": {
+      "cache": {
+        "readPerMTok": 0.0042
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.021,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.063
+        }
+      ]
+    },
+    "openrouter/inclusionai/ling-3.0-flash-vl": {
+      "cache": {
+        "readPerMTok": 0.012
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.06,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.18
+        }
+      ]
+    },
+    "openrouter/inclusionai/ling-3.1-flash": {
+      "cache": {
+        "readPerMTok": 0.015
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.075,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.225
+        }
+      ]
+    },
+    "openrouter/inference-net/schematron-v2-small": {
+      "cache": {
+        "readPerMTok": 0.05
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.23
+        }
+      ]
+    },
+    "openrouter/inference-net/schematron-v2-turbo": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.03,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.15
+        }
+      ]
+    },
+    "openrouter/liquid/lfm-2.5-2.6b": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.35,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/liquid/lfm-2.5-2.6b:free": {
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 65536,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/liquid/lfm-2.5-24b-a2b": {
+      "cache": {
+        "readPerMTok": 0.025
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.7
+        }
+      ]
+    },
+    "openrouter/mancer/weaver": {
+      "contextWindow": 8000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.4,
+          "maxTokens": 8000,
+          "outputPerMTok": 0.75
+        }
+      ]
+    },
+    "openrouter/meituan/longcat-2.0": {
+      "cache": {
+        "readPerMTok": 0.006
+      },
+      "contextWindow": 1048756,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 1048756,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/meta-llama/llama-3.1-70b-instruct": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.4,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/meta-llama/llama-3.1-8b-instruct": {
+      "cache": {
+        "readPerMTok": 0.025
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.08
+        }
+      ]
+    },
+    "openrouter/meta-llama/llama-3.2-1b-instruct": {
+      "contextWindow": 60000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.027,
+          "maxTokens": 60000,
+          "outputPerMTok": 0.201
+        }
+      ]
+    },
+    "openrouter/meta-llama/llama-3.2-3b-instruct": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.33
+        }
+      ]
+    },
+    "openrouter/meta-llama/llama-3.3-70b-instruct": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.32
+        }
+      ]
+    },
+    "openrouter/meta-llama/llama-4-maverick": {
+      "cache": {
+        "readPerMTok": 0.05
+      },
+      "contextWindow": 524288,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1875,
+          "maxTokens": 524288,
+          "outputPerMTok": 0.6525
+        }
+      ]
+    },
+    "openrouter/meta-llama/llama-4-scout": {
+      "contextWindow": 1310720,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1310720,
+          "outputPerMTok": 0.3
+        }
+      ]
+    },
+    "openrouter/meta-llama/llama-guard-4-12b": {
+      "contextWindow": 163840,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.18,
+          "maxTokens": 163840,
+          "outputPerMTok": 0.18
+        }
+      ]
+    },
+    "openrouter/meta/muse-glimmer-30b": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 131072,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/meta/muse-spark-1.1": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 4.25
+        }
+      ]
+    },
+    "openrouter/meta/muse-spark-1.2": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 4.25
+        }
+      ]
+    },
+    "openrouter/meta/muse-spark-1.2-contributor": {
+      "cache": {
+        "readPerMTok": 0.002
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/meta/muse-spark-1.3": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 4.25
+        }
+      ]
+    },
+    "openrouter/meta/muse-spark-1.3-contributor": {
+      "cache": {
+        "readPerMTok": 0.002
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/meta/muse-spark-open": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 4.25
+        }
+      ]
+    },
+    "openrouter/meta/muse-wonder": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 4.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 20.0
+        }
+      ]
+    },
+    "openrouter/microsoft/phi-4": {
+      "contextWindow": 16384,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.07,
+          "maxTokens": 16384,
+          "outputPerMTok": 0.14
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-01": {
+      "contextWindow": 1000192,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 1000192,
+          "outputPerMTok": 1.1
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-m1": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.55,
+          "maxTokens": 1000000,
+          "outputPerMTok": 2.2
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-m2": {
+      "contextWindow": 204800,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.255,
+          "maxTokens": 204800,
+          "outputPerMTok": 1.02
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-m2-her": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 65536,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-m2.1": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 204800,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 204800,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-m2.5": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 204800,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.27,
+          "maxTokens": 204800,
+          "outputPerMTok": 0.95
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-m2.7": {
+      "cache": {
+        "readPerMTok": 0.06
+      },
+      "contextWindow": 204800,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 204800,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-m3": {
+      "cache": {
+        "readPerMTok": 0.06
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/minimax/minimax-m3.1-flash": {
+      "cache": {
+        "readPerMTok": 0.015
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/mistralai/codestral-2508": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 256000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 256000,
+          "outputPerMTok": 0.9
+        }
+      ]
+    },
+    "openrouter/mistralai/devstral-2512": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.4,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/mistralai/ministral-14b-2512": {
+      "cache": {
+        "readPerMTok": 0.02
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/mistralai/ministral-3b-2512": {
+      "cache": {
+        "readPerMTok": 0.01
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.1
+        }
+      ]
+    },
+    "openrouter/mistralai/ministral-8b-2512": {
+      "cache": {
+        "readPerMTok": 0.015
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.15
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-large": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 128000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-large-2407": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 131072,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-large-2512": {
+      "cache": {
+        "readPerMTok": 0.05
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.5
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-large-4-0": {
+      "cache": {
+        "readPerMTok": 0.07
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.7,
+          "maxTokens": 1048576,
+          "outputPerMTok": 2.1
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-medium-3": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.4,
+          "maxTokens": 131072,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-medium-3-5": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.5,
+          "maxTokens": 262144,
+          "outputPerMTok": 7.5
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-medium-3-5:batch": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.75,
+          "maxTokens": 262144,
+          "outputPerMTok": 3.75
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-medium-3.1": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.4,
+          "maxTokens": 131072,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-nemo": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.029,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.03
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-saba": {
+      "cache": {
+        "readPerMTok": 0.02
+      },
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 32768,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-small-24b-instruct-2501": {
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 32768,
+          "outputPerMTok": 0.08
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-small-2603": {
+      "cache": {
+        "readPerMTok": 0.015
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-small-3.1-24b-instruct": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.351,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.555
+        }
+      ]
+    },
+    "openrouter/mistralai/mistral-small-3.2-24b-instruct": {
+      "contextWindow": 256000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.075,
+          "maxTokens": 256000,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/mistralai/mixtral-8x22b-instruct": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 65536,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/mistralai/voxtral-small-24b-2507": {
+      "cache": {
+        "readPerMTok": 0.01
+      },
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 32768,
+          "outputPerMTok": 0.3
+        }
+      ]
+    },
+    "openrouter/moondream/moondream3-preview": {
+      "contextWindow": 32000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 32000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/moondream/moondream3.1-9b-a2b": {
+      "contextWindow": 32000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 32000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k2": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.57,
+          "maxTokens": 131072,
+          "outputPerMTok": 2.3
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k2-0905": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k2-thinking": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k2.5": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k2.6": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.65,
+          "maxTokens": 262144,
+          "outputPerMTok": 3.41
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k2.7-code": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 262144,
+          "outputPerMTok": 3.5
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k3": {
+      "cache": {
+        "readPerMTok": 0.182
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.192,
+          "maxTokens": 1048576,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k3.1-pro": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/moonshotai/kimi-k3:batch": {
+      "cache": {
+        "readPerMTok": 0.228
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.28,
+          "maxTokens": 1048576,
+          "outputPerMTok": 11.4
+        }
+      ]
+    },
+    "openrouter/morph/morph-v3-fast": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.8,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/morph/morph-v3-large": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.9,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.9
+        }
+      ]
+    },
+    "openrouter/nex-agi/nex-n2.5-mini": {
+      "cache": {
+        "readPerMTok": 0.0025
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.025,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.1
+        }
+      ]
+    },
+    "openrouter/nex-agi/nex-n2.5-pro": {
+      "cache": {
+        "readPerMTok": 0.015
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.075,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.25
+        }
+      ]
+    },
+    "openrouter/nousresearch/hermes-3-llama-3.1-405b": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 131072,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/nousresearch/hermes-3-llama-3.1-70b": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.7,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.7
+        }
+      ]
+    },
+    "openrouter/nousresearch/hermes-4-405b": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 131072,
+          "outputPerMTok": 3.0
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3-nano-30b-a3b": {
+      "cache": {
+        "readPerMTok": 0.012
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.06,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.24
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free": {
+      "contextWindow": 256000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 256000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3-super-120b-a12b": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 1048576,
+          "outputPerMTok": 2.4
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3-ultra-550b-a55b": {
+      "cache": {
+        "readPerMTok": 0.12
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.4
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3.5-content-safety": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3.5-content-safety:free": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3.5-lightning": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.07,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3.5-lightning:free": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3.5-super-vl": {
+      "cache": {
+        "readPerMTok": 0.02
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/nvidia/nemotron-3.5-super-vl:free": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/nvidia/switchyard": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": -1000000.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": -1000000.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-3.5-turbo-0613": {
+      "contextWindow": 4095,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 4095,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-3.5-turbo-16k": {
+      "contextWindow": 16385,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 3.0,
+          "maxTokens": 16385,
+          "outputPerMTok": 4.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4": {
+      "contextWindow": 8191,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 30.0,
+          "maxTokens": 8191,
+          "outputPerMTok": 60.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4-turbo:batch": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 128000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4.1": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 1047576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1047576,
+          "outputPerMTok": 8.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4.1-mini": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 1047576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.4,
+          "maxTokens": 1047576,
+          "outputPerMTok": 1.6
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4.1-mini:batch": {
+      "cache": {
+        "readPerMTok": 0.05
+      },
+      "contextWindow": 1047576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 1047576,
+          "outputPerMTok": 0.8
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4.1-nano": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 1047576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1047576,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4.1-nano:batch": {
+      "cache": {
+        "readPerMTok": 0.0125
+      },
+      "contextWindow": 1047576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 1047576,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4.1:batch": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 1047576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1047576,
+          "outputPerMTok": 4.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4o": {
+      "cache": {
+        "readPerMTok": 1.25
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 128000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4o-2024-05-13": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 128000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4o-2024-08-06": {
+      "cache": {
+        "readPerMTok": 1.25
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 128000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4o-2024-11-20": {
+      "cache": {
+        "readPerMTok": 1.25
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 128000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4o-mini": {
+      "cache": {
+        "readPerMTok": 0.075
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4o-mini-2024-07-18": {
+      "cache": {
+        "readPerMTok": 0.075
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4o-mini:batch": {
+      "cache": {
+        "readPerMTok": 0.0375
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.075,
+          "maxTokens": 128000,
+          "outputPerMTok": 0.3
+        }
+      ]
+    },
+    "openrouter/openai/gpt-4o:batch": {
+      "cache": {
+        "readPerMTok": 0.625
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 128000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5": {
+      "cache": {
+        "readPerMTok": 0.125
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 400000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5-image": {
+      "cache": {
+        "readPerMTok": 1.25
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 10.0,
+          "maxTokens": 400000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5-image-mini": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 400000,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5-mini": {
+      "cache": {
+        "readPerMTok": 0.025
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 400000,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5-mini:batch": {
+      "cache": {
+        "readPerMTok": 0.0125
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.125,
+          "maxTokens": 400000,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5-nano": {
+      "cache": {
+        "readPerMTok": 0.005
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 400000,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5-nano:batch": {
+      "cache": {
+        "readPerMTok": 0.0025
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.025,
+          "maxTokens": 400000,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5-pro": {
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 15.0,
+          "maxTokens": 400000,
+          "outputPerMTok": 120.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5-pro:batch": {
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 7.5,
+          "maxTokens": 400000,
+          "outputPerMTok": 60.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.1": {
+      "cache": {
+        "readPerMTok": 0.125
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 400000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.1-codex": {
+      "cache": {
+        "readPerMTok": 0.13
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 400000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.1-codex-max": {
+      "cache": {
+        "readPerMTok": 0.125
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 400000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.1-codex-mini": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 400000,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.1:batch": {
+      "cache": {
+        "readPerMTok": 0.0625
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.625,
+          "maxTokens": 400000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.2": {
+      "cache": {
+        "readPerMTok": 0.175
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.75,
+          "maxTokens": 400000,
+          "outputPerMTok": 14.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.2-chat": {
+      "cache": {
+        "readPerMTok": 0.175
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.75,
+          "maxTokens": 128000,
+          "outputPerMTok": 14.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.2-codex": {
+      "cache": {
+        "readPerMTok": 0.175
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.75,
+          "maxTokens": 400000,
+          "outputPerMTok": 14.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.2-pro": {
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 21.0,
+          "maxTokens": 400000,
+          "outputPerMTok": 168.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.2-pro:batch": {
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 10.5,
+          "maxTokens": 400000,
+          "outputPerMTok": 84.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.2:batch": {
+      "cache": {
+        "readPerMTok": 0.0875
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.875,
+          "maxTokens": 400000,
+          "outputPerMTok": 7.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.3-codex": {
+      "cache": {
+        "readPerMTok": 0.175
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.75,
+          "maxTokens": 400000,
+          "outputPerMTok": 14.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 1050000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4-image-2": {
+      "cache": {
+        "readPerMTok": 2.0
+      },
+      "contextWindow": 272000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 8.0,
+          "maxTokens": 272000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4-mini": {
+      "cache": {
+        "readPerMTok": 0.075
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.75,
+          "maxTokens": 400000,
+          "outputPerMTok": 4.5
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4-mini:batch": {
+      "cache": {
+        "readPerMTok": 0.0375
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.375,
+          "maxTokens": 400000,
+          "outputPerMTok": 2.25
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4-nano": {
+      "cache": {
+        "readPerMTok": 0.02
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 400000,
+          "outputPerMTok": 1.25
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4-nano:batch": {
+      "cache": {
+        "readPerMTok": 0.01
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 400000,
+          "outputPerMTok": 0.625
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4-pro": {
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 30.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 180.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4-pro:batch": {
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 15.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 90.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.4:batch": {
+      "cache": {
+        "readPerMTok": 0.125
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 1050000,
+          "outputPerMTok": 7.5
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.5": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 30.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.5-pro": {
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 30.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 180.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.5-pro:batch": {
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 15.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 90.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.5:batch": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 1050000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-luna": {
+      "cache": {
+        "readPerMTok": 0.02,
+        "writePerMTok": 0.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 1050000,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-luna-pro": {
+      "cache": {
+        "readPerMTok": 0.02,
+        "writePerMTok": 0.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 1050000,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-luna-pro:batch": {
+      "cache": {
+        "readPerMTok": 0.01
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-luna:batch": {
+      "cache": {
+        "readPerMTok": 0.01
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-sol": {
+      "cache": {
+        "readPerMTok": 0.4,
+        "writePerMTok": 5.0
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 4.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 20.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-sol-pro": {
+      "cache": {
+        "readPerMTok": 0.4,
+        "writePerMTok": 5.0
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 4.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 20.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-sol-pro:batch": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-sol:batch": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-terra": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 12.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-terra-pro": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 12.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-terra-pro:batch": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5.6-terra:batch": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-5:batch": {
+      "cache": {
+        "readPerMTok": 0.0625
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.625,
+          "maxTokens": 400000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-astra": {
+      "cache": {
+        "readPerMTok": 1.0,
+        "writePerMTok": 12.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 10.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 50.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-astra-pro": {
+      "cache": {
+        "readPerMTok": 1.0,
+        "writePerMTok": 12.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 10.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 50.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-astra-pro:batch": {
+      "cache": {
+        "readPerMTok": 0.5,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-astra:batch": {
+      "cache": {
+        "readPerMTok": 0.5,
+        "writePerMTok": 6.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 25.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-luna": {
+      "cache": {
+        "readPerMTok": 0.01,
+        "writePerMTok": 0.125
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-luna-pro": {
+      "cache": {
+        "readPerMTok": 0.01,
+        "writePerMTok": 0.125
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-luna-pro:batch": {
+      "cache": {
+        "readPerMTok": 0.005,
+        "writePerMTok": 0.0625
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.25
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-luna:batch": {
+      "cache": {
+        "readPerMTok": 0.005,
+        "writePerMTok": 0.0625
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.25
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-sol": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-sol-pro": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-sol-pro:batch": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6-sol:batch": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6.1-sol": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6.1-sol-pro": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6.1-sol-pro:batch": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6.1-sol:batch": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6.1-terra": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6.1-terra-pro": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6.1-terra-pro:batch": {
+      "cache": {
+        "readPerMTok": 0.025,
+        "writePerMTok": 0.625
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 1050000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/openai/gpt-6.1-terra:batch": {
+      "cache": {
+        "readPerMTok": 0.025,
+        "writePerMTok": 0.625
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 1050000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/openai/gpt-audio": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 128000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-audio-mini": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 128000,
+          "outputPerMTok": 2.4
+        }
+      ]
+    },
+    "openrouter/openai/gpt-chat-latest": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 400000,
+          "outputPerMTok": 30.0
+        }
+      ]
+    },
+    "openrouter/openai/gpt-oss-120b": {
+      "cache": {
+        "readPerMTok": 0.075
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/openai/gpt-oss-120b:batch": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0296,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.136
+        }
+      ]
+    },
+    "openrouter/openai/gpt-oss-20b": {
+      "cache": {
+        "readPerMTok": 0.009
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.018,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.09
+        }
+      ]
+    },
+    "openrouter/openai/gpt-oss-20b:batch": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.024,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.112
+        }
+      ]
+    },
+    "openrouter/openai/gpt-oss-safeguard-20b": {
+      "cache": {
+        "readPerMTok": 0.0375
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.075,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.3
+        }
+      ]
+    },
+    "openrouter/openai/o3": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 8.0
+        }
+      ]
+    },
+    "openrouter/openai/o3-mini:batch": {
+      "cache": {
+        "readPerMTok": 0.275
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.55,
+          "maxTokens": 200000,
+          "outputPerMTok": 2.2
+        }
+      ]
+    },
+    "openrouter/openai/o3-pro": {
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 20.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 80.0
+        }
+      ]
+    },
+    "openrouter/openai/o3:batch": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 4.0
+        }
+      ]
+    },
+    "openrouter/openai/o4-mini:batch": {
+      "cache": {
+        "readPerMTok": 0.1375
+      },
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.55,
+          "maxTokens": 200000,
+          "outputPerMTok": 2.2
+        }
+      ]
+    },
+    "openrouter/openrouter/auto": {
+      "contextWindow": 2000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": -1000000.0,
+          "maxTokens": 2000000,
+          "outputPerMTok": -1000000.0
+        }
+      ]
+    },
+    "openrouter/openrouter/auto-beta": {
+      "contextWindow": 2000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": -1000000.0,
+          "maxTokens": 2000000,
+          "outputPerMTok": -1000000.0
+        }
+      ]
+    },
+    "openrouter/openrouter/bodybuilder": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": -1000000.0,
+          "maxTokens": 128000,
+          "outputPerMTok": -1000000.0
+        }
+      ]
+    },
+    "openrouter/openrouter/free": {
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/openrouter/fusion": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": -1000000.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": -1000000.0
+        }
+      ]
+    },
+    "openrouter/openrouter/pareto-code": {
+      "contextWindow": 2000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": -1000000.0,
+          "maxTokens": 2000000,
+          "outputPerMTok": -1000000.0
+        }
+      ]
+    },
+    "openrouter/particle-ai/particle-1": {
+      "cache": {
+        "readPerMTok": 0.003
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/perceptron/perceptron-mk1": {
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 32768,
+          "outputPerMTok": 1.5
+        }
+      ]
+    },
+    "openrouter/perceptron/perceptron-mk1.5": {
+      "contextWindow": 36864,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 36864,
+          "outputPerMTok": 1.5
+        }
+      ]
+    },
+    "openrouter/perplexity/sonar": {
+      "contextWindow": 127072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 127072,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/perplexity/sonar-deep-research": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 128000,
+          "outputPerMTok": 8.0
+        }
+      ]
+    },
+    "openrouter/perplexity/sonar-pro": {
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 3.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/perplexity/sonar-pro-search": {
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 3.0,
+          "maxTokens": 200000,
+          "outputPerMTok": 15.0
+        }
+      ]
+    },
+    "openrouter/perplexity/sonar-reasoning-pro": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 128000,
+          "outputPerMTok": 8.0
+        }
+      ]
+    },
+    "openrouter/poolside/laguna-s-2.1": {
+      "cache": {
+        "readPerMTok": 0.009
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.09,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.18
+        }
+      ]
+    },
+    "openrouter/poolside/laguna-s-2.1:free": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/poolside/laguna-xs-2.1": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.06,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.12
+        }
+      ]
+    },
+    "openrouter/poolside/laguna-xs-2.1:free": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/prism-ml/ternary-bonsai-2-27b": {
+      "cache": {
+        "readPerMTok": 0.0375
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.075,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/prism-ml/ternary-bonsai-2-9b": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.08,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.13
+        }
+      ]
+    },
+    "openrouter/qwen/qwen-2.5-72b-instruct": {
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.36,
+          "maxTokens": 32768,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/qwen/qwen-2.5-7b-instruct": {
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 32768,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/qwen/qwen-2.5-coder-32b-instruct": {
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.66,
+          "maxTokens": 32768,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/qwen/qwen-plus": {
+      "cache": {
+        "readPerMTok": 0.052,
+        "writePerMTok": 0.325
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.26,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.78
+        }
+      ]
+    },
+    "openrouter/qwen/qwen2.5-vl-72b-instruct": {
+      "cache": {
+        "readPerMTok": 0.4
+      },
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.8,
+          "maxTokens": 128000,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-14b": {
+      "contextWindow": 40960,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.12,
+          "maxTokens": 40960,
+          "outputPerMTok": 0.24
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-235b-a22b-2507": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.09,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.55
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-235b-a22b-thinking-2507": {
+      "contextWindow": 128000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.45,
+          "maxTokens": 128000,
+          "outputPerMTok": 3.5
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-30b-a3b": {
+      "contextWindow": 40960,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.12,
+          "maxTokens": 40960,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-30b-a3b-instruct-2507": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.3
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-32b": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.08,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.28
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-coder": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-coder-30b-a3b-instruct": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.07,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.28
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-coder-flash": {
+      "cache": {
+        "readPerMTok": 0.039,
+        "writePerMTok": 0.24375
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.195,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.975
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-coder-next": {
+      "cache": {
+        "readPerMTok": 0.07
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.12,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.8
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-next-80b-a3b-instruct": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.09,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.1
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-vl-235b-a22b-instruct": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.21,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.9
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-vl-30b-a3b-instruct": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-vl-30b-a3b-thinking": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.29,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3-vl-8b-instruct": {
+      "cache": {
+        "readPerMTok": 0.12
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.75
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.5-122b-a10b": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.26,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.08
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.5-27b": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.26,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.6
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.5-35b-a3b": {
+      "cache": {
+        "readPerMTok": 0.05
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.14,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.5-397b-a17b": {
+      "cache": {
+        "readPerMTok": 0.3
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 262144,
+          "outputPerMTok": 3.6
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.5-9b": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.17,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.25
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.5-flash-02-23": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.065,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.26
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.5-plus-02-15": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.26,
+          "maxTokens": 1000000,
+          "outputPerMTok": 1.56
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.5-plus-20260420": {
+      "cache": {
+        "writePerMTok": 0.375
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 1000000,
+          "outputPerMTok": 1.8
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.6-27b": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.45,
+          "maxTokens": 262144,
+          "outputPerMTok": 2.7
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.6-35b-a3b": {
+      "cache": {
+        "readPerMTok": 0.025
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.9
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.6-flash": {
+      "cache": {
+        "writePerMTok": 0.234375
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1875,
+          "maxTokens": 1000000,
+          "outputPerMTok": 1.125
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.6-plus": {
+      "cache": {
+        "writePerMTok": 0.40625
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.325,
+          "maxTokens": 1000000,
+          "outputPerMTok": 1.95
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.7-flash": {
+      "cache": {
+        "readPerMTok": 0.006,
+        "writePerMTok": 0.038
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.03,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.13
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.7-max": {
+      "cache": {
+        "readPerMTok": 0.295,
+        "writePerMTok": 1.84375
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.475,
+          "maxTokens": 1000000,
+          "outputPerMTok": 4.425
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.7-plus": {
+      "cache": {
+        "readPerMTok": 0.064,
+        "writePerMTok": 0.4
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.32,
+          "maxTokens": 1000000,
+          "outputPerMTok": 1.28
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.7-plus:batch": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.23,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.92
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.8-2.4t-a95b": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.8-27b": {
+      "cache": {
+        "readPerMTok": 0.0375
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 1000000,
+          "outputPerMTok": 1.875
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.8-flash": {
+      "cache": {
+        "readPerMTok": 0.016
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.47
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.8-max-0902": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.8-max-prime": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 4.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 12.0
+        }
+      ]
+    },
+    "openrouter/qwen/qwen3.8-omni-flash": {
+      "cache": {
+        "readPerMTok": 0.016
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.47
+        }
+      ]
+    },
+    "openrouter/recursive/flint-v1.0:free": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/reflection/beam-1.0-501b-a23b": {
+      "cache": {
+        "readPerMTok": 0.05
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.25,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.0
+        }
+      ]
+    },
+    "openrouter/rekaai/reka-edge": {
+      "contextWindow": 16384,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 16384,
+          "outputPerMTok": 0.1
+        }
+      ]
+    },
+    "openrouter/rekaai/reka-flash-3": {
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 65536,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/relace/relace-apply-3": {
+      "contextWindow": 256000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.85,
+          "maxTokens": 256000,
+          "outputPerMTok": 1.25
+        }
+      ]
+    },
+    "openrouter/relace/relace-search": {
+      "contextWindow": 256000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 256000,
+          "outputPerMTok": 3.0
+        }
+      ]
+    },
+    "openrouter/sakana/fugu-max": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/sakana/fugu-ultra": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 30.0
+        }
+      ]
+    },
+    "openrouter/sakana/fugu-ultra-v2": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 5.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 30.0
+        }
+      ]
+    },
+    "openrouter/sakana/sakana-namazu": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.95,
+          "maxTokens": 262144,
+          "outputPerMTok": 4.0
+        }
+      ]
+    },
+    "openrouter/sao10k/l3-lunaris-8b": {
+      "contextWindow": 8192,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.04,
+          "maxTokens": 8192,
+          "outputPerMTok": 0.05
+        }
+      ]
+    },
+    "openrouter/sao10k/l3.1-euryale-70b": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.85,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.85
+        }
+      ]
+    },
+    "openrouter/scaledown/extract": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.04,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/scaledown/summarize": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.04,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/stepfun/step-3.5-flash": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.3
+        }
+      ]
+    },
+    "openrouter/stepfun/step-3.7-flash": {
+      "cache": {
+        "readPerMTok": 0.04
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.2,
+          "maxTokens": 262144,
+          "outputPerMTok": 1.15
+        }
+      ]
+    },
+    "openrouter/stepfun/step-5-preview": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 2.7
+        }
+      ]
+    },
+    "openrouter/tencent/hunyuan-a13b-instruct": {
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.14,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.57
+        }
+      ]
+    },
+    "openrouter/tencent/hy-mt2-1.8b": {
+      "contextWindow": 8192,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.044,
+          "maxTokens": 8192,
+          "outputPerMTok": 0.177
+        }
+      ]
+    },
+    "openrouter/tencent/hy-mt2-30b-a3b": {
+      "contextWindow": 8192,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.074,
+          "maxTokens": 8192,
+          "outputPerMTok": 0.295
+        }
+      ]
+    },
+    "openrouter/tencent/hy-mt2-7b": {
+      "contextWindow": 8192,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.074,
+          "maxTokens": 8192,
+          "outputPerMTok": 0.295
+        }
+      ]
+    },
+    "openrouter/tencent/hy3": {
+      "cache": {
+        "readPerMTok": 0.033
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.132,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.528
+        }
+      ]
+    },
+    "openrouter/tencent/hy3-preview": {
+      "cache": {
+        "readPerMTok": 0.06
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.18,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/tencent/hy4-preview": {
+      "cache": {
+        "readPerMTok": 0.042
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.834,
+          "maxTokens": 1048576,
+          "outputPerMTok": 2.501
+        }
+      ]
+    },
+    "openrouter/thedrummer/cydonia-24b-v4.1": {
+      "cache": {
+        "readPerMTok": 0.15
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/thedrummer/skyfall-36b-v2": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 32768,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.55,
+          "maxTokens": 32768,
+          "outputPerMTok": 0.8
+        }
+      ]
+    },
+    "openrouter/thedrummer/unslopnemo-12b": {
+      "contextWindow": 1024000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.4,
+          "maxTokens": 1024000,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/thinkingmachines/inkling": {
+      "cache": {
+        "readPerMTok": 0.17
+      },
+      "contextWindow": 524288,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 524288,
+          "outputPerMTok": 4.05
+        }
+      ]
+    },
+    "openrouter/thinkingmachines/inkling-small": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 524288,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.45,
+          "maxTokens": 524288,
+          "outputPerMTok": 1.2
+        }
+      ]
+    },
+    "openrouter/thinkingmachines/inkling-small:free": {
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/thinkingmachines/inkling:free": {
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/typesafe/jev-router": {
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": -1000000.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": -1000000.0
+        }
+      ]
+    },
+    "openrouter/unbiased/pareto-26.10": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.8,
+          "maxTokens": 1048576,
+          "outputPerMTok": 3.2
+        }
+      ]
+    },
+    "openrouter/unbiased/pareto-26.9": {
+      "cache": {
+        "readPerMTok": 0.25
+      },
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.5,
+          "maxTokens": 262144,
+          "outputPerMTok": 7.5
+        }
+      ]
+    },
+    "openrouter/undi95/remm-slerp-l2-13b": {
+      "contextWindow": 6144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.35,
+          "maxTokens": 6144,
+          "outputPerMTok": 0.65
+        }
+      ]
+    },
+    "openrouter/upstage/solar-mini4": {
+      "cache": {
+        "readPerMTok": 0.005
+      },
+      "contextWindow": 524288,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 524288,
+          "outputPerMTok": 0.2
+        }
+      ]
+    },
+    "openrouter/upstage/solar-pro4": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 524288,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.15,
+          "maxTokens": 524288,
+          "outputPerMTok": 0.6
+        }
+      ]
+    },
+    "openrouter/writer/palmyra-x5": {
+      "contextWindow": 1040000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 1040000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/x-ai/grok-4.20": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 2000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 2000000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/x-ai/grok-4.20-multi-agent": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 2000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 2000000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/x-ai/grok-4.3": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.25,
+          "maxTokens": 1000000,
+          "outputPerMTok": 2.5
+        }
+      ]
+    },
+    "openrouter/x-ai/grok-4.3:batch": {
+      "cache": {
+        "readPerMTok": 0.16
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/x-ai/grok-4.5": {
+      "cache": {
+        "readPerMTok": 0.3
+      },
+      "contextWindow": 500000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 500000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/x-ai/grok-4.6": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 500000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 500000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/x-ai/grok-4.7": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 500000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 500000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/x-ai/grok-build-0.1": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 256000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 256000,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/xiaomi/mimo-v2.5": {
+      "cache": {
+        "readPerMTok": 0.08
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.4,
+          "maxTokens": 1050000,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/xiaomi/mimo-v2.5-pro": {
+      "cache": {
+        "readPerMTok": 0.096
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.48,
+          "maxTokens": 1050000,
+          "outputPerMTok": 1.8
+        }
+      ]
+    },
+    "openrouter/xiaomi/mimo-v2.6-flash": {
+      "cache": {
+        "readPerMTok": 0.0028
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.14,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.28
+        }
+      ]
+    },
+    "openrouter/xiaomi/mimo-v2.6-pro": {
+      "cache": {
+        "readPerMTok": 0.0036
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.435,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.87
+        }
+      ]
+    },
+    "openrouter/xiaomi/mimo-v2.6-pro-ultraspeed": {
+      "cache": {
+        "readPerMTok": 0.036
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 4.35,
+          "maxTokens": 1048576,
+          "outputPerMTok": 8.7
+        }
+      ]
+    },
+    "openrouter/xingchen-agi/xing4.0-29b-a4b:free": {
+      "contextWindow": 262144,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0,
+          "maxTokens": 262144,
+          "outputPerMTok": 0.0
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-4.5": {
+      "cache": {
+        "readPerMTok": 0.11
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 131072,
+          "outputPerMTok": 2.2
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-4.5-air": {
+      "cache": {
+        "readPerMTok": 0.025
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.13,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.85
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-4.5v": {
+      "cache": {
+        "readPerMTok": 0.11
+      },
+      "contextWindow": 65536,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.6,
+          "maxTokens": 65536,
+          "outputPerMTok": 1.8
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-4.6": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 204800,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.5,
+          "maxTokens": 204800,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-4.6v": {
+      "cache": {
+        "readPerMTok": 0.055
+      },
+      "contextWindow": 131072,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.3,
+          "maxTokens": 131072,
+          "outputPerMTok": 0.9
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-4.7": {
+      "cache": {
+        "readPerMTok": 0.099
+      },
+      "contextWindow": 204800,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.54,
+          "maxTokens": 204800,
+          "outputPerMTok": 1.98
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-4.7-flash": {
+      "contextWindow": 200000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0605,
+          "maxTokens": 200000,
+          "outputPerMTok": 0.4
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5": {
+      "cache": {
+        "readPerMTok": 0.2
+      },
+      "contextWindow": 204800,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 204800,
+          "outputPerMTok": 3.2
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5-turbo": {
+      "cache": {
+        "readPerMTok": 0.24
+      },
+      "contextWindow": 202752,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.2,
+          "maxTokens": 202752,
+          "outputPerMTok": 4.0
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5.1": {
+      "cache": {
+        "readPerMTok": 0.26
+      },
+      "contextWindow": 204800,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.4,
+          "maxTokens": 204800,
+          "outputPerMTok": 4.4
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5.2": {
+      "cache": {
+        "readPerMTok": 0.005
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.006,
+          "maxTokens": 1048576,
+          "outputPerMTok": 7.0
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5.3": {
+      "cache": {
+        "readPerMTok": 0.0689
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0699,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.4
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5.3-flash": {
+      "cache": {
+        "readPerMTok": 0.0227
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0249,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.0687
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5.3-flash:batch": {
+      "cache": {
+        "readPerMTok": 0.01
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.05,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.18
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5.3-flashx": {
+      "cache": {
+        "readPerMTok": 0.09
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.37,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.25
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5.3-prime": {
+      "cache": {
+        "readPerMTok": 0.56
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.8,
+          "maxTokens": 1000000,
+          "outputPerMTok": 8.8
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5.3:batch": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.45,
+          "maxTokens": 1048576,
+          "outputPerMTok": 2.0
+        }
+      ]
+    },
+    "openrouter/z-ai/glm-5v-turbo": {
+      "cache": {
+        "readPerMTok": 0.24
+      },
+      "contextWindow": 202752,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.2,
+          "maxTokens": 202752,
+          "outputPerMTok": 4.0
+        }
+      ]
+    },
+    "openrouter/~anthropic/claude-fable-latest": {
+      "cache": {
+        "readPerMTok": 0.25,
+        "writePerMTok": 12.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 10.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 50.0
+        }
+      ]
+    },
+    "openrouter/~anthropic/claude-haiku-latest": {
+      "cache": {
+        "readPerMTok": 0.01,
+        "writePerMTok": 0.125
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1000000,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/~anthropic/claude-opus-latest": {
+      "cache": {
+        "readPerMTok": 0.2,
+        "writePerMTok": 5.0
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 4.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 20.0
+        }
+      ]
+    },
+    "openrouter/~anthropic/claude-sonnet-latest": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1000000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1000000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/~deepseek/deepseek-flash-latest": {
+      "cache": {
+        "readPerMTok": 0.0172
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0205,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.228
+        }
+      ]
+    },
+    "openrouter/~deepseek/deepseek-pro-latest": {
+      "cache": {
+        "readPerMTok": 0.1
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1035,
+          "maxTokens": 1048576,
+          "outputPerMTok": 4.0
+        }
+      ]
+    },
+    "openrouter/~deepseek/deepseek-v4-flash-latest": {
+      "cache": {
+        "readPerMTok": 0.0294
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0304,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.3
+        }
+      ]
+    },
+    "openrouter/~google/gemini-flash-latest": {
+      "cache": {
+        "readPerMTok": 0.075,
+        "writePerMTok": 0.041667
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.75,
+          "maxTokens": 1048576,
+          "outputPerMTok": 3.75
+        }
+      ]
+    },
+    "openrouter/~google/gemini-pro-latest": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 0.1875
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1048576,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/~moonshotai/kimi-latest": {
+      "cache": {
+        "readPerMTok": 0.16
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1643,
+          "maxTokens": 1048576,
+          "outputPerMTok": 9.3388
+        }
+      ]
+    },
+    "openrouter/~openai/gpt-astra-latest": {
+      "cache": {
+        "readPerMTok": 1.0,
+        "writePerMTok": 12.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 10.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 50.0
+        }
+      ]
+    },
+    "openrouter/~openai/gpt-luna-latest": {
+      "cache": {
+        "readPerMTok": 0.01,
+        "writePerMTok": 0.125
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.1,
+          "maxTokens": 1050000,
+          "outputPerMTok": 0.5
+        }
+      ]
+    },
+    "openrouter/~openai/gpt-mini-latest": {
+      "cache": {
+        "readPerMTok": 0.075
+      },
+      "contextWindow": 400000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.75,
+          "maxTokens": 400000,
+          "outputPerMTok": 4.5
+        }
+      ]
+    },
+    "openrouter/~openai/gpt-sol-latest": {
+      "cache": {
+        "readPerMTok": 0.1,
+        "writePerMTok": 2.5
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 10.0
+        }
+      ]
+    },
+    "openrouter/~openai/gpt-terra-latest": {
+      "cache": {
+        "readPerMTok": 0.05,
+        "writePerMTok": 1.25
+      },
+      "contextWindow": 1050000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 1.0,
+          "maxTokens": 1050000,
+          "outputPerMTok": 5.0
+        }
+      ]
+    },
+    "openrouter/~unbiased/pareto-latest": {
+      "cache": {
+        "readPerMTok": 0.03
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.8,
+          "maxTokens": 1048576,
+          "outputPerMTok": 3.2
+        }
+      ]
+    },
+    "openrouter/~x-ai/grok-latest": {
+      "cache": {
+        "readPerMTok": 0.5
+      },
+      "contextWindow": 500000,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 2.0,
+          "maxTokens": 500000,
+          "outputPerMTok": 6.0
+        }
+      ]
+    },
+    "openrouter/~z-ai/glm-flash-latest": {
+      "cache": {
+        "readPerMTok": 0.0227
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0249,
+          "maxTokens": 1048576,
+          "outputPerMTok": 0.0687
+        }
+      ]
+    },
+    "openrouter/~z-ai/glm-latest": {
+      "cache": {
+        "readPerMTok": 0.0689
+      },
+      "contextWindow": 1048576,
+      "provider": "openrouter",
+      "tiers": [
+        {
+          "inputPerMTok": 0.0699,
+          "maxTokens": 1048576,
+          "outputPerMTok": 1.4
+        }
+      ]
     }
   }
 }
