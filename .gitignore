@@ -1,0 +1,15 @@
+# Python
+python/.venv/
+python/**/__pycache__/
+python/**/*.egg-info/
+python/build/
+python/dist/
+*.pyc
+
+# JS/TS
+js/node_modules/
+js/dist/
+js/src/data/models.json
+
+# OS
+.DS_Store

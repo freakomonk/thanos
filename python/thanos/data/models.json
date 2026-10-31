@@ -1,0 +1,46 @@
+{
+  "_disclaimer": "Illustrative pricing data, last checked 2026-10-31. Provider pricing changes frequently and sources disagree on current rates — verify against the provider's own pricing page before relying on this for real billing decisions. Override or add entries via ContextGuard's `models` option; you never need to edit this file.",
+  "models": {
+    "claude-opus-4-5": {
+      "provider": "anthropic",
+      "contextWindow": 200000,
+      "tiers": [
+        { "maxTokens": 200000, "inputPerMTok": 5.0, "outputPerMTok": 25.0 }
+      ],
+      "cache": { "writePerMTok": 6.25, "readPerMTok": 0.5 }
+    },
+    "claude-sonnet-4-5": {
+      "provider": "anthropic",
+      "contextWindow": 1000000,
+      "tiers": [
+        { "maxTokens": 200000, "inputPerMTok": 3.0, "outputPerMTok": 15.0 },
+        { "maxTokens": 1000000, "inputPerMTok": 6.0, "outputPerMTok": 22.5 }
+      ],
+      "cache": { "writePerMTok": 3.75, "readPerMTok": 0.3 }
+    },
+    "claude-haiku-4-5": {
+      "provider": "anthropic",
+      "contextWindow": 200000,
+      "tiers": [
+        { "maxTokens": 200000, "inputPerMTok": 1.0, "outputPerMTok": 5.0 }
+      ],
+      "cache": { "writePerMTok": 1.25, "readPerMTok": 0.1 }
+    },
+    "gpt-5": {
+      "provider": "openai",
+      "contextWindow": 400000,
+      "tiers": [
+        { "maxTokens": 400000, "inputPerMTok": 1.25, "outputPerMTok": 10.0 }
+      ],
+      "cache": { "writePerMTok": 0.0, "readPerMTok": 0.125 }
+    },
+    "gpt-5-mini": {
+      "provider": "openai",
+      "contextWindow": 400000,
+      "tiers": [
+        { "maxTokens": 400000, "inputPerMTok": 0.25, "outputPerMTok": 2.0 }
+      ],
+      "cache": { "writePerMTok": 0.0, "readPerMTok": 0.025 }
+    }
+  }
+}

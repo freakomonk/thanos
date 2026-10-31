@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "thanos"
+version = "0.1.0"
+description = "Lightweight context-window limits, pricing-tier awareness, and compression for LLM conversations"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [{ name = "Karthikeya Surabhi" }]
+keywords = ["llm", "context", "tokens", "pricing", "prompt-caching", "anthropic", "openai"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/karthikeyasurabhi/thanos"
+
+[tool.setuptools.packages.find]
+include = ["thanos*"]
+
+[tool.setuptools.package-data]
+thanos = ["data/models.json"]
