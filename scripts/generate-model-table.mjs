@@ -25,17 +25,35 @@ function formatTiers(tiers) {
     .join("; ");
 }
 
-// The README table shows only the hand-curated entries (direct provider
-// APIs, plus a handful of Bedrock/Azure flagships); `openrouter/*` entries
-// are mirrored programmatically from OpenRouter's catalog and are too
-// numerous (hundreds) to usefully print inline — they're summarized as a
-// count instead. All of it is still in models.json and `thanos models`.
-function buildTable(data) {
-  const entries = Object.entries(data.models).sort(([a], [b]) => a.localeCompare(b));
-  const curated = entries.filter(([, m]) => m.provider !== "openrouter");
-  const openrouterCount = entries.length - curated.length;
+// The README table shows only a fixed top-15 (the direct-provider models
+// plus a few flagship Bedrock/Azure/Nova/Llama/Mistral entries) so it
+// stays scannable; the full registry (currently 472 entries, including
+// 456 mirrored from OpenRouter) lives in models.json and `thanos models`.
+// Update this list by hand when it's worth swapping an entry in or out.
+const TOP_MODEL_IDS = [
+  "claude-sonnet-4-5",
+  "claude-opus-4-5",
+  "claude-haiku-4-5",
+  "gpt-5",
+  "gpt-5-mini",
+  "bedrock/claude-sonnet-4-5",
+  "bedrock/claude-opus-4-5",
+  "bedrock/claude-haiku-4-5",
+  "bedrock/nova-pro",
+  "bedrock/nova-lite",
+  "bedrock/nova-micro",
+  "bedrock/llama-3.3-70b",
+  "bedrock/mistral-large",
+  "azure/gpt-5",
+  "azure/gpt-4o",
+];
 
-  const rows = curated.map(([id, m]) => {
+function buildTable(data) {
+  const total = Object.keys(data.models).length;
+
+  const rows = TOP_MODEL_IDS.map((id) => {
+    const m = data.models[id];
+    if (!m) throw new Error(`generate-model-table.mjs: '${id}' is in TOP_MODEL_IDS but missing from models.json`);
     const cache = m.cache ? `${m.cache.writePerMTok} / ${m.cache.readPerMTok}` : "-";
     return `| \`${id}\` | ${m.provider} | ${fmt(m.contextWindow)} | ${formatTiers(m.tiers)} | ${cache} |`;
   });
@@ -47,11 +65,10 @@ function buildTable(data) {
   ].join("\n");
 
   const note =
-    `Plus **${fmt(openrouterCount)} more models** mirrored live from ` +
-    "[OpenRouter's public catalog](https://openrouter.ai/api/v1/models) " +
-    "as `openrouter/<slug>` (e.g. `openrouter/anthropic/claude-sonnet-4.5`, " +
-    "`openrouter/google/gemini-3-pro`). Run `thanos models` / `npx thanos models` " +
-    "to list all of them, or open `python/thanos/data/models.json`.";
+    `Showing ${TOP_MODEL_IDS.length} of **${fmt(total)} models** — see ` +
+    "[`python/thanos/data/models.json`](python/thanos/data/models.json) " +
+    "for the full list (including all OpenRouter-mirrored entries as " +
+    "`openrouter/<slug>`), or run `thanos models` / `npx thanos models`.";
 
   return `${table}\n\n${note}`;
 }
