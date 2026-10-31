@@ -51,9 +51,7 @@ def test_budget_ceiling_triggers_limit_and_raise_on_limit_raises():
     from thanos import LimitExceeded
 
     budget = Budget(max_tokens=50)
-    guard = ContextGuard(
-        model="claude-haiku-4-5", budget=budget, raise_on_limit=True
-    )
+    guard = ContextGuard(model="claude-haiku-4-5", budget=budget, raise_on_limit=True)
     messages = [_msg("user", "x" * 4000)]  # far more than 50 tokens
 
     try:

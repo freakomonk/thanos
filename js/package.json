@@ -6,6 +6,9 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "thanos": "./dist/cli.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -16,16 +19,30 @@
     "dist",
     "src/data/models.json"
   ],
-  "keywords": ["llm", "context", "tokens", "pricing", "prompt-caching", "anthropic", "openai"],
+  "keywords": [
+    "llm",
+    "context",
+    "tokens",
+    "pricing",
+    "prompt-caching",
+    "anthropic",
+    "openai",
+    "cli"
+  ],
   "scripts": {
     "sync-pricing": "node scripts/sync-pricing.mjs",
-    "build": "npm run sync-pricing && tsc -p tsconfig.json",
-    "test": "npm run sync-pricing && node --test --import tsx ./tests/*.test.ts"
+    "build": "npm run sync-pricing && tsc -p tsconfig.json && chmod +x dist/cli.js",
+    "test": "npm run sync-pricing && node --test --import tsx ./tests/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "lint": "npm run typecheck && npm run format:check"
   },
   "devDependencies": {
-    "typescript": "^5.6.3",
+    "@types/node": "^22.9.0",
+    "prettier": "^3.9.10",
     "tsx": "^4.19.1",
-    "@types/node": "^22.9.0"
+    "typescript": "^5.6.3"
   },
   "repository": {
     "type": "git",

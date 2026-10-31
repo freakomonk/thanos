@@ -16,7 +16,8 @@ test("truncate keeps the pinned prefix untouched", () => {
     msg("assistant", "turn 2 reply ".repeat(50)),
     msg("user", "most recent turn ".repeat(5)),
   ];
-  const target = estimateTokens([messages[0], messages[messages.length - 1]]) + 5;
+  const target =
+    estimateTokens([messages[0], messages[messages.length - 1]]) + 5;
 
   const result = truncateCompressor(messages, target, 1, estimateTokens);
 

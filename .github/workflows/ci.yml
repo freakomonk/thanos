@@ -6,17 +6,46 @@ on:
   pull_request:
 
 jobs:
-  python:
+  python-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install -e ./python pytest
+      - run: pip install -e "./python[dev]"
+      - run: ruff check python/thanos python/tests
+      - run: ruff format --check python/thanos python/tests
+
+  python-test:
+    runs-on: ubuntu-latest
+    strategy:
+      # Floor + latest supported version — catches "works on latest, broke
+      # the floor" bugs without paying for a full version sweep.
+      matrix:
+        python-version: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e "./python[dev]"
       - run: pytest python/tests -q
 
-  js:
+  js-lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: js
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install
+      - run: npm run lint
+
+  js-test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -29,3 +58,13 @@ jobs:
       - run: npm install
       - run: npm test
       - run: npm run build
+
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/generate-model-table.mjs
+      - run: git diff --exit-code README.md

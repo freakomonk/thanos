@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from importlib import resources
-from typing import Optional
 
 
 @dataclass(frozen=True)
@@ -24,7 +23,7 @@ class ModelProfile:
     model_id: str
     context_window: int
     tiers: list[PriceTier]
-    provider: Optional[str] = None
+    provider: str | None = None
     cache: CacheRates = field(default_factory=CacheRates)
 
     def tier_for(self, tokens: int) -> PriceTier:
@@ -48,7 +47,9 @@ class ModelProfile:
         input rate, and must be <= total_input_tokens.
         """
         tier = self.tier_for(total_input_tokens)
-        fresh_tokens = max(0, total_input_tokens - cache_write_tokens - cache_read_tokens)
+        fresh_tokens = max(
+            0, total_input_tokens - cache_write_tokens - cache_read_tokens
+        )
         cost = (fresh_tokens / 1_000_000) * tier.input_per_m_tok
         cost += (output_tokens / 1_000_000) * tier.output_per_m_tok
         cost += (cache_write_tokens / 1_000_000) * self.cache.write_per_m_tok
@@ -79,7 +80,7 @@ def _parse_model(model_id: str, raw: dict) -> ModelProfile:
     )
 
 
-def load_models(extra: Optional[dict] = None) -> dict[str, ModelProfile]:
+def load_models(extra: dict | None = None) -> dict[str, ModelProfile]:
     """Load the bundled model registry, optionally merged with/overridden by `extra`.
 
     `extra` uses the same shape as a `models.json` "models" block, e.g.
@@ -94,7 +95,7 @@ def load_models(extra: Optional[dict] = None) -> dict[str, ModelProfile]:
     return models
 
 
-def resolve_model(model: str | ModelProfile, extra: Optional[dict] = None) -> ModelProfile:
+def resolve_model(model: str | ModelProfile, extra: dict | None = None) -> ModelProfile:
     if isinstance(model, ModelProfile):
         return model
     models = load_models(extra)

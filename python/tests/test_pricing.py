@@ -21,9 +21,7 @@ def test_estimate_cost_usd_bills_cache_tokens_at_cache_rate():
     models = load_models()
     haiku = models["claude-haiku-4-5"]
     # 1,000 total tokens, all served from cache read.
-    cost = haiku.estimate_cost_usd(
-        total_input_tokens=1000, cache_read_tokens=1000
-    )
+    cost = haiku.estimate_cost_usd(total_input_tokens=1000, cache_read_tokens=1000)
     expected = (1000 / 1_000_000) * haiku.cache.read_per_m_tok
     assert cost == expected
 

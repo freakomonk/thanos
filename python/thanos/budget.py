@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass
@@ -13,8 +12,8 @@ class Budget:
     updates after each `prepare()` call when you pass `record=True`.
     """
 
-    max_tokens: Optional[int] = None
-    max_cost_usd: Optional[float] = None
+    max_tokens: int | None = None
+    max_cost_usd: float | None = None
     used_tokens: int = 0
     used_cost_usd: float = 0.0
 
@@ -25,9 +24,9 @@ class Budget:
     def exceeded(self) -> bool:
         if self.max_tokens is not None and self.used_tokens > self.max_tokens:
             return True
-        if self.max_cost_usd is not None and self.used_cost_usd > self.max_cost_usd:
-            return True
-        return False
+        return bool(
+            self.max_cost_usd is not None and self.used_cost_usd > self.max_cost_usd
+        )
 
     def remaining_tokens(self, fallback: int) -> int:
         if self.max_tokens is None:

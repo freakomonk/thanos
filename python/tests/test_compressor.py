@@ -17,7 +17,9 @@ def test_truncate_keeps_pinned_prefix_untouched():
     compressor = TruncateCompressor()
     target = estimate_tokens([messages[0], messages[-1]]) + 5
 
-    result = compressor(messages, target, pinned_prefix_len=1, tokenizer=estimate_tokens)
+    result = compressor(
+        messages, target, pinned_prefix_len=1, tokenizer=estimate_tokens
+    )
 
     assert result[0] == messages[0]
     assert estimate_tokens(result) <= target or len(result) == 1
@@ -34,7 +36,9 @@ def test_truncate_drops_oldest_turns_first():
     # Target fits system + only the very last message.
     target = estimate_tokens([messages[0], messages[-1]])
 
-    result = compressor(messages, target, pinned_prefix_len=1, tokenizer=estimate_tokens)
+    result = compressor(
+        messages, target, pinned_prefix_len=1, tokenizer=estimate_tokens
+    )
 
     assert result[0]["role"] == "system"
     assert result[-1] == messages[-1]
@@ -45,6 +49,8 @@ def test_truncate_never_touches_pinned_prefix_even_if_oversized():
     messages = [_msg("system", "x" * 10_000), _msg("user", "hi")]
     compressor = TruncateCompressor()
 
-    result = compressor(messages, target_tokens=1, pinned_prefix_len=1, tokenizer=estimate_tokens)
+    result = compressor(
+        messages, target_tokens=1, pinned_prefix_len=1, tokenizer=estimate_tokens
+    )
 
     assert result == [messages[0]]

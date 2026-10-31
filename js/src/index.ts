@@ -1,8 +1,5 @@
 export { Budget, type BudgetConfig } from "./budget.js";
-export {
-  truncateCompressor,
-  type Compressor,
-} from "./compressor.js";
+export { truncateCompressor, type Compressor } from "./compressor.js";
 export {
   ContextGuard,
   LimitExceeded,

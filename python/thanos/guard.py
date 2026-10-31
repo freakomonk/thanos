@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 from .budget import Budget
 from .compressor import Compressor, TruncateCompressor
@@ -29,14 +29,14 @@ class GuardResult:
 @dataclass
 class ContextGuard:
     model: str | ModelProfile
-    models: Optional[dict] = None
-    budget: Optional[Budget] = None
+    models: dict | None = None
+    budget: Budget | None = None
     tokenizer: Tokenizer = field(default=estimate_tokens)
     compressor: Compressor = field(default_factory=TruncateCompressor)
     pinned_prefix_len: int = 1
-    stay_in_tier: Optional[int] = 0
+    stay_in_tier: int | None = 0
     raise_on_limit: bool = False
-    on_limit: Optional[Callable[[dict], None]] = None
+    on_limit: Callable[[dict], None] | None = None
 
     def __post_init__(self) -> None:
         self._model: ModelProfile = resolve_model(self.model, self.models)
