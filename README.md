@@ -3,10 +3,19 @@
 [![CI](https://github.com/freakomonk/thanos/actions/workflows/ci.yml/badge.svg)](https://github.com/freakomonk/thanos/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A tiny, dependency-light utility that keeps an LLM conversation inside its
-context window and pricing tier, tracks spend, and compresses history when
-a limit is hit — in Python or TypeScript/JavaScript, with no SDK or
-framework lock-in.
+LLM API pricing isn't flat. Cross a context-length threshold (e.g. a "long
+context" tier above 200K tokens), or write/read from the prompt cache, and
+the per-token rate jumps — sometimes by 2x or more. Most apps and agent
+loops just let conversation history grow, with no visibility into which
+pricing tier a given call falls into or what it's about to cost until the
+bill shows up.
+
+`thanos` is a tiny, dependency-light utility — in Python or
+TypeScript/JavaScript, with no SDK or framework lock-in — that wraps the
+plain message list you're about to send, tells you which tier you're in
+and what it'll cost, and compresses the history automatically before you
+cross a limit you set: a context-window ceiling, a pricing tier, a token
+budget, or a dollar budget.
 
 ```bash
 pip install thanos      # or: npm install thanos
@@ -21,15 +30,9 @@ result = guard.prepare(messages)
 # result.tokens, result.estimated_cost_usd, result.compressed
 ```
 
-Model pricing isn't flat: cross a context-length threshold (e.g. a "long
-context" tier above 200K tokens) or write/read from the prompt cache, and
-the per-token rate changes. `thanos` wraps the plain message list you're
-about to send, tells you which tier you're in and what it'll cost, and
-compresses the history automatically if you'd otherwise cross a limit you
-set — a context-window ceiling, a pricing tier, a token budget, or a
-dollar budget. It never calls the model, never makes a network request,
-and never mutates messages before your cache breakpoint — the default
-compressor only drops the oldest *non-pinned* turns.
+It never calls the model, never makes a network request, and never
+mutates messages before your cache breakpoint — the default compressor
+only drops the oldest *non-pinned* turns.
 
 ## Packages
 
