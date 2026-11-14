@@ -105,7 +105,6 @@ def _cmd_check(args: argparse.Namespace) -> int:
         estimated_output_tokens=args.output_tokens,
         cache_write_tokens=args.cache_write_tokens,
         cache_read_tokens=args.cache_read_tokens,
-        record=False,
     )
 
     report = {
@@ -131,7 +130,7 @@ def _cmd_check(args: argparse.Namespace) -> int:
             f"tokens:          {report['tokens']} (tier ceiling {report['tier_max_tokens']})"
         )
         print(f"estimated cost:  ${report['estimated_cost_usd']:.6f}")
-        print(f"limit exceeded:  {report['limit_exceeded']}")
+        print(f"limit exceeded:  {str(report['limit_exceeded']).lower()}")
 
     return 1 if report["limit_exceeded"] else 0
 

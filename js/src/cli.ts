@@ -81,7 +81,6 @@ function cmdCheck(argv: string[]): number {
     estimatedOutputTokens: Number(flags["output-tokens"] ?? 0),
     cacheWriteTokens: Number(flags["cache-write-tokens"] ?? 0),
     cacheReadTokens: Number(flags["cache-read-tokens"] ?? 0),
-    record: false,
   });
 
   const report = {

@@ -18,7 +18,7 @@ def test_check_prints_report_and_returns_zero_when_under_limit(tmp_path, capsys)
     assert code == 0
     assert "model:" in out
     assert "claude-haiku-4-5" in out
-    assert "limit exceeded:  False" in out
+    assert "limit exceeded:  false" in out
 
 
 def test_check_json_output_is_valid_json(tmp_path, capsys):
@@ -38,6 +38,26 @@ def test_check_returns_nonzero_when_budget_exceeded(tmp_path, capsys):
 
     code = main(
         ["check", path, "--model", "claude-haiku-4-5", "--max-tokens", "10", "--json"]
+    )
+
+    report = json.loads(capsys.readouterr().out)
+    assert code == 1
+    assert report["limit_exceeded"] is True
+
+
+def test_check_returns_nonzero_when_cost_budget_exceeded(tmp_path, capsys):
+    path = _write_messages(tmp_path, [{"role": "user", "content": "hello"}])
+
+    code = main(
+        [
+            "check",
+            path,
+            "--model",
+            "claude-haiku-4-5",
+            "--max-cost-usd",
+            "0.000000001",
+            "--json",
+        ]
     )
 
     report = json.loads(capsys.readouterr().out)

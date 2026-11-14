@@ -74,6 +74,26 @@ test("check returns 1 when the budget is exceeded", () => {
   assert.equal(report.limitExceeded, true);
 });
 
+test("check returns 1 when the cost budget is exceeded", () => {
+  const path = writeMessages([{ role: "user", content: "hello" }]);
+
+  const { code, out } = withCapturedStdout(() =>
+    main([
+      "check",
+      path,
+      "--model",
+      "claude-haiku-4-5",
+      "--max-cost-usd",
+      "0.000000001",
+      "--json",
+    ]),
+  );
+
+  const report = JSON.parse(out);
+  assert.equal(code, 1);
+  assert.equal(report.limitExceeded, true);
+});
+
 test("check accepts an object with a messages key", () => {
   const path = writeMessages({ messages: [{ role: "user", content: "hi" }] });
 
