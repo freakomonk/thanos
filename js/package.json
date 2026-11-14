@@ -1,6 +1,6 @@
 {
   "name": "thanos-ctx",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Lightweight context-window limits, pricing-tier awareness, and compression for LLM conversations",
   "license": "MIT",
   "type": "module",
@@ -39,9 +39,18 @@
   },
   "devDependencies": {
     "@types/node": "^22.9.0",
+    "js-tiktoken": "^1.0.21",
     "prettier": "^3.9.10",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "js-tiktoken": "^1.0.21"
+  },
+  "peerDependenciesMeta": {
+    "js-tiktoken": {
+      "optional": true
+    }
   },
   "repository": {
     "type": "git",
