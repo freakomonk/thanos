@@ -76,10 +76,10 @@ Both implement the same small set of concepts:
 
 | Concept | What it does |
 |---|---|
-| `ModelProfile` / model registry | Context window, pricing tiers, cache write/read rates per model. Ships Anthropic + OpenAI presets; add your own via a plain config object — no code changes. |
-| `Tokenizer` | Counts tokens for a message list. Defaults to a fast offline estimate; swap in an exact provider token-count call if you want precision. |
-| `Compressor` | Shrinks a message list to fit a token target. Default keeps the pinned prefix and drops the oldest turns; swap in your own (e.g. an LLM-summarization callback). |
-| `Budget` | Optional cumulative token/dollar ceiling across a whole conversation, checked alongside the context-window/tier limit. |
+| `ModelProfile` / model registry | Context window, pricing tiers, cache write/read rates per model. Ships hundreds of presets (direct APIs, Bedrock, Azure, OpenRouter); add your own via a plain config object — no code changes. |
+| `Tokenizer` | Counts tokens for a message list. Defaults to a fast offline estimate; swap in `tiktokenTokenizer`/`tiktoken_tokenizer` (exact, OpenAI-family) or Python's `anthropic_count_tokens_tokenizer` (exact, Claude) if you want precision. |
+| `Compressor` | Shrinks a message list to fit a token target. Ships `truncateCompressor` (default, drops oldest turns), `priorityTruncateCompressor` (keeps tool-call turns longer), and `makeSummarizingCompressor` (condenses dropped history into one note via your own summarizer); swap in your own just as easily. |
+| `Budget` | Optional cumulative token/dollar ceiling across a whole conversation, checked alongside the context-window/tier limit. `recordActual()`/`record_actual()` reconciles it with the real usage a response reports, instead of compounding `prepare()`'s pre-call estimate. |
 | `ContextGuard` | Ties the above together: `prepare(messages)` → tokens, tier, estimated cost, and the (possibly compressed) messages to actually send. |
 
 ## Supported models
@@ -97,12 +97,16 @@ fails if they drift apart (see the `docs` job in
 provider's own pricing page. Unprefixed ids (`claude-sonnet-4-5`, `gpt-5`)
 are each provider's direct API; `bedrock/*` and `azure/*` are a small
 hand-curated set of flagship models on AWS Bedrock and Azure AI Foundry;
-`openrouter/*` is mirrored programmatically from
+`openrouter/*` is mirrored from
 [OpenRouter's public model catalog](https://openrouter.ai/api/v1/models),
-so it reflects OpenRouter's own pricing, not the underlying provider's.
-Anything not listed raises an error unless you add it yourself via the
-`models` option on `ContextGuard`, with no need to touch this file or
-this repo.
+so it reflects OpenRouter's own pricing, not the underlying provider's —
+and unlike the hand-curated entries, it's kept fresh automatically: a
+scheduled [`sync-openrouter-models`](.github/workflows/sync-openrouter-models.yml)
+workflow re-runs [`scripts/sync-openrouter-models.mjs`](scripts/sync-openrouter-models.mjs)
+weekly and opens a PR whenever the catalog drifts (run it manually any
+time with `node scripts/sync-openrouter-models.mjs`). Anything not
+listed raises an error unless you add it yourself via the `models`
+option on `ContextGuard`, with no need to touch this file or this repo.
 
 <!-- MODELS_TABLE:START -->
 | Model id | Provider | Context window | Tiers (maxTokens: input/output $ per MTok) | Cache write/read $ per MTok |
@@ -123,7 +127,7 @@ this repo.
 | `azure/gpt-5` | azure | 400,000 | ≤400,000: $1.25/$10 | 0 / 0.125 |
 | `azure/gpt-4o` | azure | 128,000 | ≤128,000: $2.5/$10 | 0 / 1.25 |
 
-Showing 15 of **472 models** — see [`python/thanos/data/models.json`](python/thanos/data/models.json) for the full list (including all OpenRouter-mirrored entries as `openrouter/<slug>`), or run `thanos models` / `npx thanos-ctx models`.
+Showing 15 of **487 models** — see [`python/thanos/data/models.json`](python/thanos/data/models.json) for the full list (including all OpenRouter-mirrored entries as `openrouter/<slug>`), or run `thanos models` / `npx thanos-ctx models`.
 
 <!-- MODELS_TABLE:END -->
 
@@ -216,6 +220,10 @@ npm run build
 
 CI (`.github/workflows/ci.yml`) runs the same commands, plus a `docs` job
 that regenerates the model table above and fails if `README.md` drifted.
+A separate scheduled workflow
+([`sync-openrouter-models.yml`](.github/workflows/sync-openrouter-models.yml))
+refreshes the `openrouter/*` registry entries weekly via a pull request —
+see [Supported models](#supported-models).
 
 ## License
 

@@ -46,17 +46,70 @@ for (const turn of conversation) {
 }
 ```
 
-## Custom compression
+`prepare()` records an *estimate* before you've sent the request. Once
+the real response comes back, reconcile the budget with what you were
+actually billed:
+
+```ts
+const response = await client.messages.create({ model: "claude-sonnet-4-5", messages: result.messages, max_tokens: 1024 });
+
+guard.recordActual(result, {
+  inputTokens: response.usage.input_tokens,
+  outputTokens: response.usage.output_tokens,
+  cacheReadTokens: response.usage.cache_read_input_tokens,
+});
+```
+
+This adjusts `budget.usedTokens`/`usedCostUsd` by the delta between the
+real numbers and the original estimate, so the running total tracks
+actual spend rather than compounding estimation error over a long
+session. Safe to call even with no `Budget` attached — it just returns
+the real cost.
+
+## Compression strategies
+
+The default `truncateCompressor` drops the oldest non-pinned turns.
+Two more ship built in:
+
+```ts
+import { ContextGuard, priorityTruncateCompressor } from "thanos-ctx";
+
+// Keeps tool-call/tool-result turns longer than ordinary chat turns when
+// something has to be dropped.
+const guard = new ContextGuard({ model: "claude-sonnet-4-5", compressor: priorityTruncateCompressor });
+```
+
+```ts
+import { ContextGuard, makeSummarizingCompressor } from "thanos-ctx";
+
+function summarize(droppedMessages: unknown[]): string {
+  // Your own call to an LLM (or anything else) — thanos never calls a
+  // model itself. Return a short summary of `droppedMessages`.
+}
+
+const guard = new ContextGuard({
+  model: "claude-sonnet-4-5",
+  compressor: makeSummarizingCompressor(summarize, { keepRecent: 4 }),
+});
+```
+
+`makeSummarizingCompressor` keeps the pinned prefix and the last
+`keepRecent` messages verbatim, and replaces everything else with one
+condensed system message — so compression loses a summary's worth of
+detail instead of the turns outright. Falls back to truncation (or a
+`fallback` compressor you supply) if there's nothing worth summarizing,
+or the summary itself still doesn't fit.
+
+You can of course write your own instead:
 
 ```ts
 import { ContextGuard, type Compressor } from "thanos-ctx";
 
-const summarizeAndTruncate: Compressor = (messages, targetTokens, pinnedPrefixLen, tokenizer) => {
-  // Your own strategy — e.g. call an LLM to summarize the dropped turns
-  // into one system note, then fall back to truncation.
+const myCompressor: Compressor = (messages, targetTokens, pinnedPrefixLen, tokenizer) => {
+  // Your own strategy.
 };
 
-const guard = new ContextGuard({ model: "claude-sonnet-4-5", compressor: summarizeAndTruncate });
+const guard = new ContextGuard({ model: "claude-sonnet-4-5", compressor: myCompressor });
 ```
 
 ## Reacting to limits
@@ -71,6 +124,25 @@ const guard = new ContextGuard({
 ```
 
 Pass `raiseOnLimit: true` to throw `LimitExceeded` instead of just notifying `onLimit`.
+
+## Exact token counts
+
+The default `estimateTokens` is a fast, offline ~4-chars-per-token
+heuristic. For exact counts on OpenAI-family models:
+
+```ts
+import { ContextGuard, tiktokenTokenizer } from "thanos-ctx";
+
+// Local, no network call. Requires `npm install js-tiktoken`.
+const guard = new ContextGuard({ model: "gpt-5", tokenizer: tiktokenTokenizer("gpt-5") });
+```
+
+There's no JS equivalent of Python's `anthropic_count_tokens_tokenizer`.
+Anthropic's `count_tokens` call is async, and `Tokenizer`/`prepare()`
+here are synchronous by design — bolting an async exact-count path onto
+a sync API would be a bigger change than "add a tokenizer." For an exact
+Claude count in JS, call the API yourself and reconcile afterward with
+[`recordActual`](#budgets) instead of pre-counting.
 
 ## Adding or overriding a model
 

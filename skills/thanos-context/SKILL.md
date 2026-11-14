@@ -66,14 +66,36 @@ const response = await client.messages.create({ model: "claude-sonnet-4-5", mess
 on these instead of guessing.
 
 **3. For a budget ceiling** (tokens and/or dollars, checked alongside the
-pricing-tier limit), pass a `Budget`:
+pricing-tier limit), pass a `Budget`. Once the real response comes back,
+reconcile the budget's running total with what was actually billed
+instead of letting `prepare()`'s pre-call estimate compound over a long
+session:
 
 ```python
 from thanos import Budget, ContextGuard
 guard = ContextGuard(model="claude-sonnet-4-5", budget=Budget(max_cost_usd=5.00))
+result = guard.prepare(messages)
+response = client.messages.create(...)
+guard.record_actual(result, input_tokens=response.usage.input_tokens, output_tokens=response.usage.output_tokens)
 ```
 
-**4. For a no-code check** — sizing up a saved conversation, or as a CI
+**4. For compression that loses less,** swap the default
+`TruncateCompressor`/`truncateCompressor`: `PriorityTruncateCompressor`/
+`priorityTruncateCompressor` keeps tool-call/tool-result turns longer
+than ordinary chat; `make_summarizing_compressor`/
+`makeSummarizingCompressor(summarize, keep_recent=4)` condenses dropped
+history into one note via a summarizer function *you* provide (thanos
+still never calls a model itself).
+
+**5. For exact token counts** instead of the default offline estimate:
+`tiktoken_tokenizer`/`tiktokenTokenizer` for OpenAI-family models
+(requires `tiktoken`/`js-tiktoken`), or Python's
+`anthropic_count_tokens_tokenizer(client, model)` for Claude (a real
+network call via the caller's own client). No JS equivalent for Claude —
+that endpoint is async and `Tokenizer`/`prepare()` here are synchronous
+by design; use `recordActual` after the call instead.
+
+**6. For a no-code check** — sizing up a saved conversation, or as a CI
 gate — use the CLI (exits `1` when a limit is exceeded):
 
 ```bash
