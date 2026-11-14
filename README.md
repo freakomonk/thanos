@@ -1,6 +1,8 @@
 # thanos
 
 [![CI](https://github.com/freakomonk/thanos/actions/workflows/ci.yml/badge.svg)](https://github.com/freakomonk/thanos/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/thanos-ctx.svg)](https://pypi.org/project/thanos-ctx/)
+[![npm](https://img.shields.io/npm/v/thanos-ctx.svg)](https://www.npmjs.com/package/thanos-ctx)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 LLM API pricing isn't flat. Cross a context-length threshold (e.g. a "long
