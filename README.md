@@ -12,6 +12,32 @@ loops just let conversation history grow, with no visibility into which
 pricing tier a given call falls into or what it's about to cost until the
 bill shows up.
 
+**Illustrative example** — a session that transmits 10M cumulative input
+tokens over its life, on `claude-sonnet-4-5` ($3/$15 per MTok under 200K
+tokens, $6/$22.5 above, $0.30/MTok to read the prompt cache):
+
+```mermaid
+flowchart TD
+    A["Session sends 10M cumulative\ninput tokens over its lifetime"]
+    A --> B["Without thanos"]
+    A --> C["With thanos"]
+
+    B --> B1["Every turn resends the full,\never-growing history"]
+    B1 --> B2["Most calls have already crossed\nthe 200K long-context tier line"]
+    B2 --> B3["10M tok billed at $6/MTok\n≈ $60"]
+
+    C --> C1["ContextGuard.prepare() compresses\nbefore every call"]
+    C1 --> C2["Stays under the 200K tier;\nreused prefix hits the prompt\ncache instead of full-price input"]
+    C2 --> C3["~1M tok fresh @ $3/MTok +\n~9M tok cached @ $0.30/MTok\n≈ $6 — about 10x cheaper"]
+```
+
+Illustrative only — the real split between "fresh" and "cached" tokens
+depends on how much of your history is actually reusable, and the exact
+rates depend on the model (see [Supported models](#supported-models)
+below). The mechanism is what's real: staying under a pricing tier and
+reusing the prompt cache instead of re-billing the same history every
+turn.
+
 `thanos` is a tiny, dependency-light utility — in Python or
 TypeScript/JavaScript, with no SDK or framework lock-in — that wraps the
 plain message list you're about to send, tells you which tier you're in
