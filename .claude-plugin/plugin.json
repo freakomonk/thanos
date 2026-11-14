@@ -1,0 +1,12 @@
+{
+  "name": "thanos",
+  "description": "Context-window limits, pricing-tier awareness, and compression for LLM conversations — adds the thanos-context skill.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Karthikeya Surabhi"
+  },
+  "homepage": "https://github.com/freakomonk/thanos",
+  "repository": "https://github.com/freakomonk/thanos",
+  "license": "MIT",
+  "keywords": ["llm", "context", "tokens", "pricing", "prompt-caching", "anthropic", "openai"]
+}

@@ -128,6 +128,27 @@ npx thanos check conversation.json --model claude-sonnet-4-5 --max-cost-usd 0.50
 `thanos models` (optionally with `--json`) lists the registry from either
 package the same way.
 
+## Claude Skill
+
+This repo also ships [`thanos-context`](skills/thanos-context/SKILL.md),
+an [Agent Skill](https://github.com/freakomonk/thanos) that teaches
+Claude (or any Agent-Skills-compatible harness) when and how to reach for
+`thanos` in someone else's codebase — no framework assumptions, same as
+the library itself.
+
+**Claude Code**, one-time setup, then it's available everywhere:
+
+```
+/plugin marketplace add freakomonk/thanos
+/plugin install thanos@thanos
+```
+
+**Any other Agent-Skills-compatible host**: skills are just files — copy
+or symlink [`skills/thanos-context/`](skills/thanos-context/) into
+wherever that host loads skills from (e.g. `~/.claude/skills/` or a
+project's `.claude/skills/` for Claude Code itself, if you'd rather skip
+the plugin).
+
 ## Design choices
 
 - **No framework or SDK coupling.** `prepare()` takes and returns a plain

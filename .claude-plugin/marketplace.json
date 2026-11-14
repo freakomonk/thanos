@@ -1,0 +1,16 @@
+{
+  "name": "thanos",
+  "owner": {
+    "name": "Karthikeya Surabhi"
+  },
+  "metadata": {
+    "description": "Context-window limits, pricing-tier awareness, and compression for LLM conversations."
+  },
+  "plugins": [
+    {
+      "name": "thanos",
+      "source": "./",
+      "description": "Context-window limits, pricing-tier awareness, and compression for LLM conversations."
+    }
+  ]
+}
