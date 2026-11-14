@@ -1,5 +1,11 @@
 export { Budget, type BudgetConfig } from "./budget.js";
-export { truncateCompressor, type Compressor } from "./compressor.js";
+export {
+  truncateCompressor,
+  priorityTruncateCompressor,
+  makeSummarizingCompressor,
+  type Compressor,
+  type SummarizingCompressorOptions,
+} from "./compressor.js";
 export {
   ContextGuard,
   LimitExceeded,
@@ -7,6 +13,7 @@ export {
   type GuardResult,
   type LimitInfo,
   type PrepareOptions,
+  type RecordActualOptions,
 } from "./guard.js";
 export {
   loadModels,
@@ -17,4 +24,9 @@ export {
   type PriceTier,
   type CacheRates,
 } from "./pricing.js";
-export { estimateTokens, type Message, type Tokenizer } from "./tokenizer.js";
+export {
+  estimateTokens,
+  tiktokenTokenizer,
+  type Message,
+  type Tokenizer,
+} from "./tokenizer.js";

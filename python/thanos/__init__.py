@@ -1,8 +1,18 @@
 from .budget import Budget
-from .compressor import Compressor, TruncateCompressor
+from .compressor import (
+    Compressor,
+    PriorityTruncateCompressor,
+    TruncateCompressor,
+    make_summarizing_compressor,
+)
 from .guard import ContextGuard, GuardResult, LimitExceeded
 from .pricing import ModelProfile, load_models
-from .tokenizer import Tokenizer, estimate_tokens
+from .tokenizer import (
+    Tokenizer,
+    anthropic_count_tokens_tokenizer,
+    estimate_tokens,
+    tiktoken_tokenizer,
+)
 
 __all__ = [
     "Budget",
@@ -11,10 +21,14 @@ __all__ = [
     "GuardResult",
     "LimitExceeded",
     "ModelProfile",
+    "PriorityTruncateCompressor",
     "Tokenizer",
     "TruncateCompressor",
+    "anthropic_count_tokens_tokenizer",
     "estimate_tokens",
     "load_models",
+    "make_summarizing_compressor",
+    "tiktoken_tokenizer",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
