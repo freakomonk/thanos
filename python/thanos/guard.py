@@ -24,6 +24,10 @@ class GuardResult:
     estimated_cost_usd: float
     compressed: bool
     limit_exceeded: bool
+    # Tokens actually added to the attached Budget for this call (0 if
+    # there's no Budget, or prepare(record=False) was used) — used by
+    # record_actual() to compute its delta; not normally read directly.
+    recorded_tokens: int = 0
 
 
 @dataclass
@@ -74,8 +78,10 @@ class ContextGuard:
             tokens, estimated_output_tokens, cache_write_tokens, cache_read_tokens
         )
 
+        recorded_tokens = 0
         if self.budget is not None and record:
-            self.budget.record(tokens + estimated_output_tokens, cost)
+            recorded_tokens = tokens + estimated_output_tokens
+            self.budget.record(recorded_tokens, cost)
             if self.budget.exceeded():
                 limit_exceeded = True
 
@@ -103,4 +109,44 @@ class ContextGuard:
             estimated_cost_usd=cost,
             compressed=compressed,
             limit_exceeded=limit_exceeded,
+            recorded_tokens=recorded_tokens,
         )
+
+    def record_actual(
+        self,
+        result: GuardResult,
+        input_tokens: int | None = None,
+        output_tokens: int = 0,
+        cache_write_tokens: int = 0,
+        cache_read_tokens: int = 0,
+    ) -> float:
+        """Reconcile `prepare()`'s estimate with the real usage the
+        provider reported after the call (e.g. `response.usage`),
+        correcting the attached `Budget`'s running totals by the delta
+        between actual and estimated cost/tokens. Returns the actual
+        cost in USD. Safe to call with no `Budget` attached (just
+        returns the real cost); a no-op on the budget if the original
+        `prepare()` call didn't record anything (`budget=None` or
+        `record=False`).
+        """
+        total_input = result.tokens if input_tokens is None else input_tokens
+        actual_cost = self._model.estimate_cost_usd(
+            total_input, output_tokens, cache_write_tokens, cache_read_tokens
+        )
+        if self.budget is not None and result.recorded_tokens:
+            actual_tokens = total_input + output_tokens
+            self.budget.record(
+                actual_tokens - result.recorded_tokens,
+                actual_cost - result.estimated_cost_usd,
+            )
+            if self.on_limit is not None and self.budget.exceeded():
+                self.on_limit(
+                    {
+                        "tokens": actual_tokens,
+                        "ceiling": self._ceiling(),
+                        "compressed": result.compressed,
+                        "limit_exceeded": True,
+                        "estimated_cost_usd": actual_cost,
+                    }
+                )
+        return actual_cost

@@ -91,3 +91,44 @@ def test_custom_tokenizer_and_compressor_are_used():
     assert calls["tokenizer"] >= 1
     assert calls["compressor"] == 1
     assert result.tokens == 10
+
+
+def test_record_actual_corrects_budget_by_the_delta():
+    budget = Budget(max_cost_usd=100.0)
+    guard = ContextGuard(model="claude-haiku-4-5", budget=budget)
+    result = guard.prepare([_msg("user", "hello")], estimated_output_tokens=10)
+
+    estimated_cost = result.estimated_cost_usd
+    estimated_tokens = budget.used_tokens
+
+    actual_cost = guard.record_actual(result, input_tokens=1000, output_tokens=500)
+
+    assert actual_cost != estimated_cost
+    assert budget.used_cost_usd == estimated_cost + (actual_cost - estimated_cost)
+    assert budget.used_tokens == estimated_tokens + (1500 - result.recorded_tokens)
+
+
+def test_record_actual_is_a_no_op_on_budget_without_one_attached():
+    guard = ContextGuard(model="claude-haiku-4-5")
+    result = guard.prepare([_msg("user", "hello")])
+
+    actual_cost = guard.record_actual(result, input_tokens=1000, output_tokens=500)
+
+    assert actual_cost > 0  # just returns the real cost, nothing to correct
+
+
+def test_record_actual_fires_on_limit_when_actual_pushes_over_budget():
+    calls = []
+    budget = Budget(max_cost_usd=0.001)
+    guard = ContextGuard(
+        model="claude-haiku-4-5",
+        budget=budget,
+        on_limit=lambda info: calls.append(info),
+    )
+    result = guard.prepare([_msg("user", "hi")], record=True)
+    calls.clear()  # ignore whatever prepare() itself fired
+
+    guard.record_actual(result, input_tokens=10_000_000, output_tokens=0)
+
+    assert len(calls) == 1
+    assert calls[0]["limit_exceeded"] is True

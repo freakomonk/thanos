@@ -90,3 +90,58 @@ test("custom tokenizer and compressor are used", () => {
   assert.equal(calls.compressor, 1);
   assert.equal(result.tokens, 10);
 });
+
+test("recordActual corrects the budget by the delta", () => {
+  const budget = new Budget({ maxCostUsd: 100.0 });
+  const guard = new ContextGuard({ model: "claude-haiku-4-5", budget });
+  const result = guard.prepare([msg("user", "hello")], {
+    estimatedOutputTokens: 10,
+  });
+
+  const estimatedCost = result.estimatedCostUsd;
+  const estimatedTokens = budget.usedTokens;
+
+  const actualCost = guard.recordActual(result, {
+    inputTokens: 1000,
+    outputTokens: 500,
+  });
+
+  assert.notEqual(actualCost, estimatedCost);
+  assert.equal(
+    budget.usedCostUsd,
+    estimatedCost + (actualCost - estimatedCost),
+  );
+  assert.equal(
+    budget.usedTokens,
+    estimatedTokens + (1500 - result.recordedTokens),
+  );
+});
+
+test("recordActual is a no-op on budget when none is attached", () => {
+  const guard = new ContextGuard({ model: "claude-haiku-4-5" });
+  const result = guard.prepare([msg("user", "hello")]);
+
+  const actualCost = guard.recordActual(result, {
+    inputTokens: 1000,
+    outputTokens: 500,
+  });
+
+  assert.ok(actualCost > 0);
+});
+
+test("recordActual fires onLimit when actual usage pushes over budget", () => {
+  const calls: unknown[] = [];
+  const budget = new Budget({ maxCostUsd: 0.001 });
+  const guard = new ContextGuard({
+    model: "claude-haiku-4-5",
+    budget,
+    onLimit: (info) => calls.push(info),
+  });
+  const result = guard.prepare([msg("user", "hi")]);
+  calls.length = 0; // ignore whatever prepare() itself fired
+
+  guard.recordActual(result, { inputTokens: 10_000_000, outputTokens: 0 });
+
+  assert.equal(calls.length, 1);
+  assert.equal((calls[0] as { limitExceeded: boolean }).limitExceeded, true);
+});

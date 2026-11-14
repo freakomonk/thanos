@@ -15,6 +15,17 @@ export interface GuardResult {
   estimatedCostUsd: number;
   compressed: boolean;
   limitExceeded: boolean;
+  /** Tokens actually added to the attached Budget for this call (0 if
+   * there's no Budget, or `prepare({ record: false })` was used) — used
+   * by `recordActual()` to compute its delta; not normally read directly. */
+  recordedTokens: number;
+}
+
+export interface RecordActualOptions {
+  inputTokens?: number;
+  outputTokens?: number;
+  cacheWriteTokens?: number;
+  cacheReadTokens?: number;
 }
 
 export interface LimitInfo {
@@ -114,8 +125,10 @@ export class ContextGuard {
       cacheReadTokens,
     );
 
+    let recordedTokens = 0;
     if (this.budget && record) {
-      this.budget.record(tokens + estimatedOutputTokens, cost);
+      recordedTokens = tokens + estimatedOutputTokens;
+      this.budget.record(recordedTokens, cost);
       if (this.budget.exceeded()) limitExceeded = true;
     }
 
@@ -144,6 +157,51 @@ export class ContextGuard {
       estimatedCostUsd: cost,
       compressed,
       limitExceeded,
+      recordedTokens,
     };
+  }
+
+  /**
+   * Reconcile `prepare()`'s estimate with the real usage the provider
+   * reported after the call (e.g. `response.usage`), correcting the
+   * attached Budget's running totals by the delta between actual and
+   * estimated cost/tokens. Returns the actual cost in USD. Safe to call
+   * with no Budget attached (just returns the real cost); a no-op on
+   * the budget if the original `prepare()` call didn't record anything
+   * (`budget` unset, or `record: false`).
+   */
+  recordActual(result: GuardResult, options: RecordActualOptions = {}): number {
+    const {
+      inputTokens,
+      outputTokens = 0,
+      cacheWriteTokens = 0,
+      cacheReadTokens = 0,
+    } = options;
+    const totalInput = inputTokens ?? result.tokens;
+    const actualCost = this.model.estimateCostUsd(
+      totalInput,
+      outputTokens,
+      cacheWriteTokens,
+      cacheReadTokens,
+    );
+
+    if (this.budget && result.recordedTokens) {
+      const actualTokens = totalInput + outputTokens;
+      this.budget.record(
+        actualTokens - result.recordedTokens,
+        actualCost - result.estimatedCostUsd,
+      );
+      if (this.onLimit && this.budget.exceeded()) {
+        this.onLimit({
+          tokens: actualTokens,
+          ceiling: this.ceiling(),
+          compressed: result.compressed,
+          limitExceeded: true,
+          estimatedCostUsd: actualCost,
+        });
+      }
+    }
+
+    return actualCost;
   }
 }
