@@ -4,11 +4,14 @@ Keep an LLM conversation inside its context window and pricing tier, track
 spend, and compress history automatically when a limit is hit.
 
 ```bash
-npm install thanos
+npm install thanos-ctx
 ```
 
+(Published as `thanos-ctx` — the bare `thanos` name on npm belongs to an
+unrelated project.)
+
 ```ts
-import { ContextGuard } from "thanos";
+import { ContextGuard } from "thanos-ctx";
 
 const guard = new ContextGuard({ model: "claude-sonnet-4-5" });
 
@@ -33,7 +36,7 @@ console.log(result.tokens, result.estimatedCostUsd, result.compressed);
 ## Budgets
 
 ```ts
-import { Budget, ContextGuard } from "thanos";
+import { Budget, ContextGuard } from "thanos-ctx";
 
 const budget = new Budget({ maxCostUsd: 5.0 });
 const guard = new ContextGuard({ model: "claude-sonnet-4-5", budget });
@@ -46,7 +49,7 @@ for (const turn of conversation) {
 ## Custom compression
 
 ```ts
-import { ContextGuard, type Compressor } from "thanos";
+import { ContextGuard, type Compressor } from "thanos-ctx";
 
 const summarizeAndTruncate: Compressor = (messages, targetTokens, pinnedPrefixLen, tokenizer) => {
   // Your own strategy — e.g. call an LLM to summarize the dropped turns

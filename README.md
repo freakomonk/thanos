@@ -18,8 +18,13 @@ cross a limit you set: a context-window ceiling, a pricing tier, a token
 budget, or a dollar budget.
 
 ```bash
-pip install thanos      # or: npm install thanos
+pip install thanos-ctx      # or: npm install thanos-ctx
 ```
+
+(Published as `thanos-ctx` on PyPI/npm — the bare `thanos` name was already
+taken on both by unrelated projects. The CLI command, the Python import,
+the GitHub repo, and the Claude plugin/skill all still use the plain
+`thanos` name — only the registry package name differs.)
 
 ```python
 from thanos import ContextGuard
@@ -36,8 +41,8 @@ only drops the oldest *non-pinned* turns.
 
 ## Packages
 
-- [`python/`](python/) — `pip install thanos` — full usage docs, custom compressors, budgets
-- [`js/`](js/) — `npm install thanos` — full usage docs, custom compressors, budgets
+- [`python/`](python/) — `pip install thanos-ctx` — full usage docs, custom compressors, budgets
+- [`js/`](js/) — `npm install thanos-ctx` — full usage docs, custom compressors, budgets
 
 Both implement the same small set of concepts:
 
@@ -90,7 +95,7 @@ this repo.
 | `azure/gpt-5` | azure | 400,000 | ≤400,000: $1.25/$10 | 0 / 0.125 |
 | `azure/gpt-4o` | azure | 128,000 | ≤128,000: $2.5/$10 | 0 / 1.25 |
 
-Showing 15 of **472 models** — see [`python/thanos/data/models.json`](python/thanos/data/models.json) for the full list (including all OpenRouter-mirrored entries as `openrouter/<slug>`), or run `thanos models` / `npx thanos models`.
+Showing 15 of **472 models** — see [`python/thanos/data/models.json`](python/thanos/data/models.json) for the full list (including all OpenRouter-mirrored entries as `openrouter/<slug>`), or run `thanos models` / `npx thanos-ctx models`.
 
 <!-- MODELS_TABLE:END -->
 
@@ -100,11 +105,11 @@ Both packages install a `thanos` command for checking a conversation from
 a shell or a CI step, without writing any code:
 
 ```bash
-# Python, after `pip install thanos`
+# Python, after `pip install thanos-ctx`
 thanos check conversation.json --model claude-sonnet-4-5
 
 # JS/TS, no install needed
-npx thanos check conversation.json --model claude-sonnet-4-5
+npx thanos-ctx check conversation.json --model claude-sonnet-4-5
 ```
 
 ```
@@ -122,7 +127,7 @@ file. Add `--max-tokens`/`--max-cost-usd` to check against a budget, and
 limit is exceeded, so it doubles as a CI gate:
 
 ```bash
-npx thanos check conversation.json --model claude-sonnet-4-5 --max-cost-usd 0.50 || echo "over budget"
+npx thanos-ctx check conversation.json --model claude-sonnet-4-5 --max-cost-usd 0.50 || echo "over budget"
 ```
 
 `thanos models` (optionally with `--json`) lists the registry from either

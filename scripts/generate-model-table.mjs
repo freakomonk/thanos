@@ -68,7 +68,7 @@ function buildTable(data) {
     `Showing ${TOP_MODEL_IDS.length} of **${fmt(total)} models** — see ` +
     "[`python/thanos/data/models.json`](python/thanos/data/models.json) " +
     "for the full list (including all OpenRouter-mirrored entries as " +
-    "`openrouter/<slug>`), or run `thanos models` / `npx thanos models`.";
+    "`openrouter/<slug>`), or run `thanos models` / `npx thanos-ctx models`.";
 
   return `${table}\n\n${note}`;
 }

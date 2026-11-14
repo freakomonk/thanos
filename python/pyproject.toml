@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "thanos"
+name = "thanos-ctx"
 version = "0.1.0"
 description = "Lightweight context-window limits, pricing-tier awareness, and compression for LLM conversations"
 readme = "README.md"

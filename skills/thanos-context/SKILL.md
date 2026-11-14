@@ -33,9 +33,12 @@ same way.
 **1. Install** (zero runtime dependencies either way):
 
 ```bash
-pip install thanos      # Python
-npm install thanos      # TypeScript/JavaScript
+pip install thanos-ctx      # Python — import stays `from thanos import ...`
+npm install thanos-ctx      # TypeScript/JavaScript — import is `from "thanos-ctx"`
 ```
+
+(Published as `thanos-ctx` on both registries — the bare `thanos` name was
+already taken by unrelated projects on PyPI and npm.)
 
 **2. Wrap the message list immediately before the existing API call.**
 Don't change how the call itself is made — only swap in the returned
@@ -51,7 +54,7 @@ response = client.messages.create(model="claude-sonnet-4-5", messages=result.mes
 ```
 
 ```ts
-import { ContextGuard } from "thanos";
+import { ContextGuard } from "thanos-ctx";
 
 const guard = new ContextGuard({ model: "claude-sonnet-4-5" });
 const result = guard.prepare(messages);
@@ -74,8 +77,8 @@ guard = ContextGuard(model="claude-sonnet-4-5", budget=Budget(max_cost_usd=5.00)
 gate — use the CLI (exits `1` when a limit is exceeded):
 
 ```bash
-thanos check conversation.json --model claude-sonnet-4-5          # after pip install
-npx thanos check conversation.json --model claude-sonnet-4-5      # no install needed
+thanos check conversation.json --model claude-sonnet-4-5              # after pip install
+npx thanos-ctx check conversation.json --model claude-sonnet-4-5      # no install needed
 ```
 
 `conversation.json` is a JSON array of `{role, content}` messages, or an
@@ -84,7 +87,7 @@ every supported model id.
 
 ## Model ids
 
-Run `thanos models` / `npx thanos models`, or see
+Run `thanos models` / `npx thanos-ctx models`, or see
 `python/thanos/data/models.json` in the repo for the full registry
 (hundreds of models across direct provider APIs, AWS Bedrock, Azure AI
 Foundry, and OpenRouter). If a model isn't listed, pass its pricing

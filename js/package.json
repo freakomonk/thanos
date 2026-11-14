@@ -1,5 +1,5 @@
 {
-  "name": "thanos",
+  "name": "thanos-ctx",
   "version": "0.1.0",
   "description": "Lightweight context-window limits, pricing-tier awareness, and compression for LLM conversations",
   "license": "MIT",

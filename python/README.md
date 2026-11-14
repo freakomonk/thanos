@@ -4,8 +4,11 @@ Keep an LLM conversation inside its context window and pricing tier, track
 spend, and compress history automatically when a limit is hit.
 
 ```bash
-pip install thanos
+pip install thanos-ctx
 ```
+
+(Published as `thanos-ctx` — the bare `thanos` name on PyPI belongs to an
+unrelated project. The import stays `from thanos import ...`.)
 
 ```python
 from thanos import ContextGuard
