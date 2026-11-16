@@ -297,7 +297,7 @@
       "tiers": [
         {
           "maxTokens": 1048576,
-          "inputPerMTok": 0.038,
+          "inputPerMTok": 0.036,
           "outputPerMTok": 0.5
         }
       ],
@@ -1402,12 +1402,12 @@
       "tiers": [
         {
           "maxTokens": 1048576,
-          "inputPerMTok": 0.0434,
-          "outputPerMTok": 0.3
+          "inputPerMTok": 0.06,
+          "outputPerMTok": 0.18
         }
       ],
       "cache": {
-        "readPerMTok": 0.035
+        "readPerMTok": 0.015
       }
     },
     "openrouter/deepseek/deepseek-v4-flash-0731:batch": {
@@ -1472,12 +1472,12 @@
       "tiers": [
         {
           "maxTokens": 1048576,
-          "inputPerMTok": 0.0507,
-          "outputPerMTok": 0.2028
+          "inputPerMTok": 0.14,
+          "outputPerMTok": 0.42
         }
       ],
       "cache": {
-        "readPerMTok": 0.001014
+        "readPerMTok": 0.0042
       }
     },
     "openrouter/deepseek/deepseek-v4.1-flash-1017": {
@@ -1486,12 +1486,12 @@
       "tiers": [
         {
           "maxTokens": 1048576,
-          "inputPerMTok": 0.038,
-          "outputPerMTok": 0.5
+          "inputPerMTok": 0.15,
+          "outputPerMTok": 0.6
         }
       ],
       "cache": {
-        "readPerMTok": 0.01
+        "readPerMTok": 0.003
       }
     },
     "openrouter/deepseek/deepseek-v4.1-flash-1017:batch": {
@@ -1500,12 +1500,12 @@
       "tiers": [
         {
           "maxTokens": 1048576,
-          "inputPerMTok": 0.05,
-          "outputPerMTok": 0.15
+          "inputPerMTok": 0.035,
+          "outputPerMTok": 0.311
         }
       ],
       "cache": {
-        "readPerMTok": 0.004
+        "readPerMTok": 0.003
       }
     },
     "openrouter/deepseek/deepseek-v4.1-flash:batch": {
@@ -2134,12 +2134,12 @@
       "tiers": [
         {
           "maxTokens": 262144,
-          "inputPerMTok": 0.0675,
-          "outputPerMTok": 0.225
+          "inputPerMTok": 0.09,
+          "outputPerMTok": 0.3
         }
       ],
       "cache": {
-        "readPerMTok": 0.0375
+        "readPerMTok": 0.05
       }
     },
     "openrouter/google/gemma-4-26b-a4b-it:free": {
@@ -2215,7 +2215,7 @@
         {
           "maxTokens": 131072,
           "inputPerMTok": 0.06,
-          "outputPerMTok": 0.25
+          "outputPerMTok": 0.15
         }
       ],
       "cache": {
@@ -2650,12 +2650,12 @@
       "tiers": [
         {
           "maxTokens": 198000,
-          "inputPerMTok": 0.27,
-          "outputPerMTok": 0.95
+          "inputPerMTok": 0.295,
+          "outputPerMTok": 1.2
         }
       ],
       "cache": {
-        "readPerMTok": 0.03
+        "readPerMTok": 0.06
       }
     },
     "openrouter/minimax/minimax-m2.7": {
@@ -3085,7 +3085,7 @@
       "tiers": [
         {
           "maxTokens": 262144,
-          "inputPerMTok": 0.6,
+          "inputPerMTok": 0.7125,
           "outputPerMTok": 3.5
         }
       ],
@@ -3127,8 +3127,8 @@
       "tiers": [
         {
           "maxTokens": 1048576,
-          "inputPerMTok": 2,
-          "outputPerMTok": 10
+          "inputPerMTok": 0.2403,
+          "outputPerMTok": 8.4023
         }
       ],
       "cache": {
@@ -3367,7 +3367,7 @@
         {
           "maxTokens": 1048576,
           "inputPerMTok": 0.15,
-          "outputPerMTok": 0.47
+          "outputPerMTok": 0.5
         }
       ],
       "cache": {
@@ -4642,12 +4642,12 @@
       "tiers": [
         {
           "maxTokens": 131072,
-          "inputPerMTok": 0.03,
-          "outputPerMTok": 0.13
+          "inputPerMTok": 0.018,
+          "outputPerMTok": 0.09
         }
       ],
       "cache": {
-        "readPerMTok": 0.03
+        "readPerMTok": 0.009
       }
     },
     "openrouter/openai/gpt-oss-20b:batch": {
@@ -4825,7 +4825,7 @@
       "tiers": [
         {
           "maxTokens": 1048576,
-          "inputPerMTok": 0.05,
+          "inputPerMTok": 0.06,
           "outputPerMTok": 0.5
         }
       ],
@@ -5162,17 +5162,6 @@
         }
       ]
     },
-    "openrouter/qwen/qwen3-vl-30b-a3b-thinking": {
-      "provider": "openrouter",
-      "contextWindow": 262144,
-      "tiers": [
-        {
-          "maxTokens": 262144,
-          "inputPerMTok": 0.29,
-          "outputPerMTok": 1
-        }
-      ]
-    },
     "openrouter/qwen/qwen3-vl-8b-instruct": {
       "provider": "openrouter",
       "contextWindow": 262144,
@@ -5229,12 +5218,12 @@
       "tiers": [
         {
           "maxTokens": 262144,
-          "inputPerMTok": 0.6,
-          "outputPerMTok": 3.6
+          "inputPerMTok": 0.45,
+          "outputPerMTok": 3
         }
       ],
       "cache": {
-        "readPerMTok": 0.12
+        "readPerMTok": 0.22
       }
     },
     "openrouter/qwen/qwen3.5-9b": {
@@ -5243,12 +5232,12 @@
       "tiers": [
         {
           "maxTokens": 262144,
-          "inputPerMTok": 0.17,
-          "outputPerMTok": 0.25
+          "inputPerMTok": 0.095,
+          "outputPerMTok": 0.139
         }
       ],
       "cache": {
-        "readPerMTok": 0.153
+        "readPerMTok": 0.085
       }
     },
     "openrouter/qwen/qwen3.5-flash-02-23": {
@@ -5505,6 +5494,21 @@
         "readPerMTok": 0.016
       }
     },
+    "openrouter/qwen/qwen4-max": {
+      "provider": "openrouter",
+      "contextWindow": 1000000,
+      "tiers": [
+        {
+          "maxTokens": 1000000,
+          "inputPerMTok": 1.5,
+          "outputPerMTok": 4.5
+        }
+      ],
+      "cache": {
+        "writePerMTok": 1.875,
+        "readPerMTok": 0.075
+      }
+    },
     "openrouter/recursive/flint-v1.0:free": {
       "provider": "openrouter",
       "contextWindow": 262144,
@@ -5688,17 +5692,6 @@
         }
       ]
     },
-    "openrouter/stepfun/step-3.5-flash": {
-      "provider": "openrouter",
-      "contextWindow": 262144,
-      "tiers": [
-        {
-          "maxTokens": 262144,
-          "inputPerMTok": 0.1,
-          "outputPerMTok": 0.3
-        }
-      ]
-    },
     "openrouter/stepfun/step-3.7-flash": {
       "provider": "openrouter",
       "contextWindow": 262144,
@@ -5726,17 +5719,6 @@
       "cache": {
         "readPerMTok": 0.1
       }
-    },
-    "openrouter/tencent/hunyuan-a13b-instruct": {
-      "provider": "openrouter",
-      "contextWindow": 131072,
-      "tiers": [
-        {
-          "maxTokens": 131072,
-          "inputPerMTok": 0.14,
-          "outputPerMTok": 0.57
-        }
-      ]
     },
     "openrouter/tencent/hy-mt2-1.8b": {
       "provider": "openrouter",
@@ -5811,6 +5793,20 @@
       ],
       "cache": {
         "readPerMTok": 0.021
+      }
+    },
+    "openrouter/tencent/hy4-flash": {
+      "provider": "openrouter",
+      "contextWindow": 1048576,
+      "tiers": [
+        {
+          "maxTokens": 1048576,
+          "inputPerMTok": 0.04375,
+          "outputPerMTok": 0.175625
+        }
+      ],
+      "cache": {
+        "readPerMTok": 0.001875
       }
     },
     "openrouter/tencent/hy4-preview": {
@@ -6269,12 +6265,12 @@
       "tiers": [
         {
           "maxTokens": 131072,
-          "inputPerMTok": 0.2,
-          "outputPerMTok": 1.1
+          "inputPerMTok": 0.13,
+          "outputPerMTok": 0.85
         }
       ],
       "cache": {
-        "readPerMTok": 0.03
+        "readPerMTok": 0.025
       }
     },
     "openrouter/z-ai/glm-4.5v": {
@@ -6325,12 +6321,12 @@
       "tiers": [
         {
           "maxTokens": 204800,
-          "inputPerMTok": 0.6,
-          "outputPerMTok": 2.2
+          "inputPerMTok": 0.4,
+          "outputPerMTok": 1.75
         }
       ],
       "cache": {
-        "readPerMTok": 0.11
+        "readPerMTok": 0.08
       }
     },
     "openrouter/z-ai/glm-4.7-flash": {
@@ -6400,32 +6396,18 @@
         "readPerMTok": 0.006
       }
     },
-    "openrouter/z-ai/glm-5.2:batch": {
-      "provider": "openrouter",
-      "contextWindow": 1048576,
-      "tiers": [
-        {
-          "maxTokens": 1048576,
-          "inputPerMTok": 0.322,
-          "outputPerMTok": 0.989
-        }
-      ],
-      "cache": {
-        "readPerMTok": 0.109
-      }
-    },
     "openrouter/z-ai/glm-5.3": {
       "provider": "openrouter",
       "contextWindow": 1048576,
       "tiers": [
         {
           "maxTokens": 1048576,
-          "inputPerMTok": 0.084,
-          "outputPerMTok": 3.6
+          "inputPerMTok": 0.0699,
+          "outputPerMTok": 1.4
         }
       ],
       "cache": {
-        "readPerMTok": 0.079
+        "readPerMTok": 0.0689
       }
     },
     "openrouter/z-ai/glm-5.3-flash": {

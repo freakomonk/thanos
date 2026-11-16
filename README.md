@@ -127,7 +127,7 @@ option on `ContextGuard`, with no need to touch this file or this repo.
 | `azure/gpt-5` | azure | 400,000 | ≤400,000: $1.25/$10 | 0 / 0.125 |
 | `azure/gpt-4o` | azure | 128,000 | ≤128,000: $2.5/$10 | 0 / 1.25 |
 
-Showing 15 of **487 models** — see [`python/thanos/data/models.json`](python/thanos/data/models.json) for the full list (including all OpenRouter-mirrored entries as `openrouter/<slug>`), or run `thanos models` / `npx thanos-ctx models`.
+Showing 15 of **485 models** — see [`python/thanos/data/models.json`](python/thanos/data/models.json) for the full list (including all OpenRouter-mirrored entries as `openrouter/<slug>`), or run `thanos models` / `npx thanos-ctx models`.
 
 <!-- MODELS_TABLE:END -->
 
